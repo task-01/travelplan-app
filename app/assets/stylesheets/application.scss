@@ -1,0 +1,238 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+@import "bootstrap";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+.user_icon {
+  cursor: pointer;
+}
+
+.navbar-brand {
+  font-family: "kaisei-harunoumi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  margin-right: 20px;
+}
+
+.sub-title-h1 {
+  font-family: "kaisei-harunoumi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.text-area {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.pop-travel-tag {
+  margin-right: 15px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  list-style:none;
+
+  .navbar-brand, .dropdown, li{
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: transparent;
+        transition: all 0.5s ease 0s;
+      }
+          
+      &:hover {
+        &:after {
+          background: rgb(133, 158, 255);
+        }
+      }
+      
+      &.current {
+        &:after {
+          background: rgb(133, 158, 255);
+        }
+      }
+    }
+}
+.top {
+  width: 100%;
+  background-color:rgba(223, 221, 249, 0.8);
+  fill:#fff;
+  background-size: cover;
+  background-image:url("https://lh3.googleusercontent.com/luPhQp86ugEZEd80AYrgppnuEgWl4CNepv5xOMZLQ31q5xf3aIwY2N3EKdoI8OPJBw9SHvVO5qGyoLRZbAGkbb65OYWLXp1ZkTEVslrZbg");
+}
+
+.pop-travel-title {
+  width: 100%;
+  border-top: double 5px #FFC778;
+  border-bottom: double 5px #FFC778;
+}
+
+.travel-prefectures {
+  display: table;
+  background-color: #FFC778;
+  margin: 0 auto;
+}
+
+.travel-prefectures-table {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table-cell {
+  text-align: center;
+  width: 287px;
+}
+
+.travel-prefectures-image {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  height: 300px;
+  background-color: #4cccff;
+}
+
+.travel-prefectures-explanation {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.top-image {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.login-link {
+  margin-top: 15px;
+}
+
+.signup-value {
+  appearance: none;
+  background-color: #4cccff;
+  border: 2px solid #005273;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #202020;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 70%;
+  will-change: transform;
+}
+
+.signup-value:disabled {
+  pointer-events: none;
+}
+
+.signup-value:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.signup-value:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.login-value:first-child {
+  margin-right: 20px;
+}
+
+.login-value:last-child {
+  margin-left: 20px;
+}
+
+.login-value {
+  background: #ffffff;
+  backface-visibility: hidden;
+  border-radius: .375rem;
+  border-style: solid;
+  border-width: .125rem;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,Helvetica,sans-serif;
+  font-size: 1.125rem;
+  font-weight: 100;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  padding: .875rem 1.125rem;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.login-value:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.login-value:not(:disabled):hover:active {
+  transform: scale(1.05) translateY(.125rem);
+}
+
+.login-value:focus {
+  outline: 0 solid transparent;
+}
+
+.login-value:focus:before {
+  content: "";
+  left: calc(-1*.375rem);
+  pointer-events: none;
+  position: absolute;
+  top: calc(-1*.375rem);
+  transition: border-radius;
+  user-select: none;
+}
+
+.login-value:focus:not(:focus-visible) {
+  outline: 0 solid transparent;
+}
+
+.login-value:focus:not(:focus-visible):before {
+  border-width: 0;
+}
+
+.login-value:not(:disabled):active {
+  transform: translateY(.125rem);
+}

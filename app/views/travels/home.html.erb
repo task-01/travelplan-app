@@ -1,4 +1,71 @@
+<%= render 'shared/header' %>
 <div class="top">
-  <h3>ChatGPTに聞きたいことを入力してください</h3>
-  <%= render 'shared/form' %>
+  <div class="top-image-class">
+    <div class="top-image-area w-75 mx-auto">
+      <%= image_tag 'https://content.es-ws.jp/cpool/1163/000/000/044/293/mv_overseas_sp.jpg', class: 'top-image' %>
+    </div>
+  </div>
+  <div class="text-area">
+    <div class=text-container>
+      <h1 class="sub-title-h1">自動で旅行プランを作成しよう</h1>
+      <br>
+      <P class="explanatory-text-p">旅行はしたいけど、計画立てるのはめんどくさいと思う方に旅行プランを提供します！
+        <br>
+        人気の旅行プランを一覧で確認も出来るので楽しい旅行プランでリフレッシュしよう！
+      </P>
+      <div class="user-top-link">
+        <% if user_signed_in? %>
+          <div class="XXXX">
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            <%= link_to  "投稿する", "/posts/new", class: "YYYY" %>
+          </div>
+        <% else %>
+          <div class="sign-up-link">
+            <%= link_to "> 新規登録して旅行プランを立ててみよう！", "/", class: "signup-value"%>
+          </div>
+          <div class="login-link">
+            <%= link_to "ログインはこちら", new_user_session_path, class: "login-value" %>
+            <%= link_to "ゲストログインはちら", new_user_registration_path, class: "login-value" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="pop-travel-area">
+    <section class="travel-container w-75 mx-auto">
+      <h2 class="pop-travel-title mt-4">人気の旅行先</h2>
+      <br>
+      <div class="travel-prefectures">
+        <div class="travel-prefectures-table">
+          <div class="table-cell">
+            <div class="travel-prefectures-image">
+              <p>image-sunple</p>
+            </div>
+            <div class="travel-prefectures-explanation">
+              <h5>都道府県名</h5>
+              <h3>いいね数</h3>
+            </div>
+          </div>
+          <div class="table-cell">
+            <div class="travel-prefectures-image">
+              <p>image-sunple</p>
+            </div>
+            <div class="travel-prefectures-explanation">
+              <h5>都道府県名</h5>
+              <h3>いいね数</h3>
+            </div>
+          </div>
+          <div class="table-cell">
+            <div class="travel-prefectures-image">
+              <p>image-sunple</p>
+            </div>
+            <div class="travel-prefectures-explanation">
+              <h5>都道府県名</h5>
+              <h3>いいね数</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
