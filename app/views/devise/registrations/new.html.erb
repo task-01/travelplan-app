@@ -1,29 +1,73 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="top">
+  <div class="register-area">
+    <div class="register-image">
+      <div class="register-title-area">
+        <div class="register-title-container w-75 mx-auto">
+          <div class="relative-title-area mt-5 mb-3">
+            <div class="relative-area">
+              <div class="relative-path">
+                <%= link_to '/', class: 'navbar-brand' do %>
+                  <i class="icon-arrow-right"></i>Travel Plan App
+                <% end %>
+              </div>
+              <h1>ユーザー新規登録</h1>
+            </div>
+          </div>
+          <div class="field-area">
+            <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+              <div class="field form-group">
+                <%= f.label "ユーザー名" %><br>
+                <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: "20", class: "type_name form-control", required: "required" %>
+                <%= f.label "※入力必須項目です" %>
+              </div>
+              <div class="field form-group">
+                <%= f.label "メールアドレス" %><br>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "type_email form-control", required: "required" %>
+                <%= f.label "※入力必須項目です" %>
+              </div>
+              <div class="field form-group">
+                <% if @minimum_password_length %>
+                <em></em>
+                <% end %>
+                <%= f.label "パスワード (6文字以上)"%><br>
+                <%= f.password_field :password, id: "input_pass", autocomplete: "new-password", minlength: "6", class: "type_password form-control", required: "required" %>
+                <%= f.label "※入力必須項目です", class: "type_confirmation_password" %>
+              </div>
+              <div class="field form-group">
+                <%= f.label "パスワード (確認用)"%><br>
+                <%= f.password_field :password_confirmation, id: "confirmation_pass", autocomplete: "new-password", minlength: "6", class: "type_confirmation_password form-control", required: "required" %>
+                <%= f.label "※入力必須項目です", class: "type_confirmation_password" %>
+              </div>
+              <input type = 'checkbox' id = 'users_passcheck' class = 'check_input mb-3'> 
+              パスワードを表示する
+              <div class="actions">
+                <%= f.submit "新規登録", class: "btn btn-blue btn--cubic mt-3" %>
+              </div>
+            <% end %>
+            <hr class="hr_border mt-5 mb-3">
+            <div class="under-forms pb-3">
+              <p>すでにアカウントをお持ちの場合は、<%= render "devise/shared/links" %>を押してください</p>
+              <p>アカウントを作成しないで利用する場合は<%= render "devise/shared/links" %>を押してください</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
+<script>
+document.addEventListener('turbolinks:load', function() {
+  document.getElementById('users_passcheck').addEventListener('change', function() {
+    let input_pass = document.getElementById("input_pass");
+    let confirmation_pass = document.getElementById("confirmation_pass");
+    if (input_pass.type === "password", confirmation_pass.type === "password"){
+        input_pass.type = "text"
+        confirmation_pass.type = "text"
+    }else{
+        input_pass.type = "password"
+        confirmation_pass.type = "password"
+    };
+  })
+}, false)
+</script>

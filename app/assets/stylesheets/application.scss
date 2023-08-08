@@ -18,12 +18,37 @@
   cursor: pointer;
 }
 
+#error_explanation ul > li {
+  color: red;
+}
+
+#error_explanation > h2 {
+  text-align: center;
+  background-color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  width: 40%;
+}
+
+.type_name:valid+ label, .type_email:valid+ label, .type_password:valid+ label, :valid+ .type_confirmation_password{
+  display: none;
+}
+
+.type_name+ label, .type_email:invalid+ label, .type_confirmation_password{
+  color: red;
+}
+
 .navbar-brand {
-  font-family: "kaisei-harunoumi", sans-serif;
+  font-family: 'Bangers', cursive;
   font-weight: 400;
   font-style: normal;
   font-size: 30px;
-  margin-right: 20px;
+  margin-right: 15px;
+}
+
+.navbar-nav > .header1, .navbar-nav > .pop-travel-tag {
+  margin: 8px 15px;
 }
 
 .sub-title-h1 {
@@ -36,10 +61,6 @@
   text-align: center;
   display: flex;
   justify-content: center;
-}
-
-.pop-travel-tag {
-  margin-right: 15px;
 }
 
 .navbar {
@@ -235,4 +256,82 @@
 
 .login-value:not(:disabled):active {
   transform: translateY(.125rem);
+}
+
+.app-title {
+  margin-left: 30px;
+}
+
+.relative-area {
+  border-left: double 5px #050606;
+  width: fit-content;
+  font-family: "kaisei-harunoumi", sans-serif;
+}
+
+.relative-area > .relative-path, .relative-area > h1 {
+  margin-left: 10px;
+}
+
+.register-area {
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0 0 20px 0 rgba(0, 128, 255, 0.5);
+  border-color: #2c68ff7d;
+}
+
+.btn-blue{
+  width: 35%;
+  color: #000;
+  background-color: #00b3ff;
+  border-bottom: 5px solid #0484bb;
+}
+
+.btn-blue:hover {
+  margin-top: 3px;
+  color: #000;
+  background: #00b3ff;;
+  border-bottom: 2px solid #0484bb;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field input {
+  width: 300px;
+  margin-top: 5px;
+}
+
+.register-image {
+  background-image:url("https://tinyurl.com/2ahl9953");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar-toggler {
+  margin: 0 0 0 auto;
+}
+
+.user_header-list {
+  text-align: left;
+}
+
+.register-title-container {
+  padding-top: 10px;
+}
+
+.relative-path > a {
+  font-size: 20px;
+}
+
+.under-forms > p {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  .field input, .actions input { width: 100%;}
 }

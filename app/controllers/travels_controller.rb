@@ -1,5 +1,7 @@
 class TravelsController < ApplicationController
+  before_action :authenticate_user!, except: :home
   def home
+    # @user = current_user.id
   end
 
   def index
@@ -13,5 +15,9 @@ class TravelsController < ApplicationController
     )
 
     @travels = response.dig("choices", 0, "message", "content")
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 end

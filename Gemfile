@@ -71,3 +71,4 @@ gem 'devise'
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'jquery-rails'
 gem "ruby-openai"
+gem 'rails-i18n'
