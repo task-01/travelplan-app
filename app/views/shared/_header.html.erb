@@ -1,7 +1,11 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <h1><%= link_to 'Travel Plan App', '/', class: 'navbar-brand' %></h1>
+      <% if user_signed_in? %>
+        <h1><%= link_to 'Travel Plan App', travelplan_path(@user.id), class: 'navbar-brand' %></h1>
+      <% else %>
+        <h1><%= link_to 'Travel Plan App', '/', class: 'navbar-brand' %></h1>
+      <% end %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -24,10 +28,10 @@
           <div id="OpenMenu" class= "dropdown-toggle"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="bi bi-person-circle"></i>
-            <span>user_name(仮)</span>
+            <span><%= @user.name %></span>
           </div>
           <ul class="dropdown-menu" aria-labelledby="OpenMenu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
@@ -43,8 +47,8 @@
                 <% end %>
               </li>
               <li class="header1">
-                <%= link_to '#', class: 'text-dark text-decoration-none' do %>
-                  <i class="bi bi-person-down"></i>ゲストログイン
+                <%= link_to users_guest_sign_in_path, class: 'text-dark text-decoration-none', method: :post do %>
+                  <i class="bi bi-person-down"></i>ゲストログイン（閲覧用）
                 <% end %>
               </li>
               <li class="header1">
@@ -55,7 +59,6 @@
             </ul>
           </div>
         </div>
-        
       <% end %>
     </div>
   </nav>
