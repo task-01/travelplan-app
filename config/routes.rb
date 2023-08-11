@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
-  get 'travelplans/:id', to: 'travelplans#home', as: 'travelplans_home'
+  get 'travelplans/home/:id', to: 'travelplans#home', as: 'travelplans_home'
+
   resources :travelplans
   resources :users, only: [:show]
 

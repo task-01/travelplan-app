@@ -1,4 +1,4 @@
-class Travelplans < ActiveRecord::Migration[6.1]
+class CreateTravelplans < ActiveRecord::Migration[6.1]
   def change
     create_table :travelplans do |t|
       t.string :travelplanName

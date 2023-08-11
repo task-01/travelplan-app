@@ -14,6 +14,27 @@
 @import "bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
+.fixed_to_post_link {
+  position: fixed;
+  right: 40px;
+  bottom: 55px;
+  z-index: 100;
+  opacity: 0.75;
+  background: repeating-linear-gradient(45deg, #34d5f99a , #34d5f99a  20px, #34d5f9 20px, #34d5f9 40px);
+  border: 1px solid gray;
+  border-radius: 50px;
+  padding: 10px 20px;
+  color: #000000;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: .3s;
+  text-decoration: none; 
+}
+
+.fixed_to_post_link:before {
+  content: "▷";
+}
+
 .user_icon {
   cursor: pointer;
 }
@@ -100,7 +121,7 @@
   background-color:rgba(223, 221, 249, 0.8);
   fill:#fff;
   background-size: cover;
-  background-image:url("https://lh3.googleusercontent.com/luPhQp86ugEZEd80AYrgppnuEgWl4CNepv5xOMZLQ31q5xf3aIwY2N3EKdoI8OPJBw9SHvVO5qGyoLRZbAGkbb65OYWLXp1ZkTEVslrZbg");
+  background-image:url("https://tinyurl.com/2yrmvjt9");
 }
 
 .pop-travel-title {
@@ -274,9 +295,22 @@
 
 .register-area {
   width: 80%;
+  height: 80%;
   margin: 0 auto;
   box-shadow: 0 0 20px 0 rgba(0, 128, 255, 0.5);
   border-color: #2c68ff7d;
+}
+
+.register-area .register-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.register-image {
+  background-image:url("https://tinyurl.com/2aotwr79");
+  background-size: 100% 100%;
 }
 
 .btn-blue{
@@ -302,11 +336,99 @@
   margin-top: 5px;
 }
 
-.register-image {
-  background-image:url("https://tinyurl.com/2ahl9953");
-  background-size: cover;
+.edit-area {
+  padding-top: 50px;
+}
+
+.show-image-class {
   width: 100%;
+  height: auto;
+}
+
+.show-image-area {
+  background-image:url("https://content.es-ws.jp/cpool/1163/000/000/044/293/mv_overseas_sp.jpg");
+  width: 100%;
+  height: 400px;
+  background-size: 100% 100%;
+}
+
+.show-mypage {
+  width: 100%;
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.show-user {
+  font-size: 1.8rem;
+  white-space: nowrap;
+}
+
+.show-top-footer ul {
+  margin-top: 10px;
+  height: 100px;
+  background: rgba(189, 193, 198, 0.5);
+}
+
+.show-top-footer ul li {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+}
+
+.mytravel-area {
+  padding-top: 80px;
+}
+
+.set-travel-area {
+  max-width: 970px;
+  margin: 0 auto;
+}
+
+.set-travel-area ol li {
+  height: 300px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.travel-text-area {
+  width: 100%;
+}
+
+.travel-text-area h5 {
+  font-family: Georgia, serif;
+}
+
+.travel-text-area hr {
+  margin-top: 10px;
+}
+
+.arrow-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-top {
+  max-width: 970px;
+  margin: 0 auto;
+  height: 400px;
+}
+
+.show-mypage-area {
   height: 100%;
+  background: rgba(255,255,255,0.5);
+  margin: 0 auto;
+}
+
+.defult-image img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
 }
 
 .navbar-toggler {
@@ -326,12 +448,71 @@
 }
 
 .under-forms > p {
+  font-size: x-small;
   margin-top: 0;
   margin-bottom: 0;
   display: block;
   text-decoration: none;
 }
 
+.editpage {
+  width: 200px;
+  height: 50px;
+  padding: 11px 0;
+}
+
+.item-contents {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-family: "kaisei-harunoumi", sans-serif;
+  width: 100%;
+  cursor: pointer;
+
+  .tab-area {
+    max-width: 970px;
+    margin: 0 auto;
+  }
+
+  .tab-area .tab.active:before {
+    content: "🔻選択中";
+  }
+
+  .tab-area .tab.active {
+    background: rgba(194, 255, 253, 0.934);
+    padding-top: 0;
+  }
+
+  .tab-area .tab.active h3 {
+    opacity: 1;
+  }
+
+  .tab-area .tab {
+    background: rgba(189, 193, 198, 0.5);
+    padding-top: 15px;
+  }
+
+  .tab-area .tab h3 {
+    opacity: 0.5;
+  }
+}
+
+.content-area {
+  .content {
+    display: none;
+  }
+
+  .content.show {
+    display: block;
+  }
+}
+
 @media (max-width: 520px) {
   .field input, .actions input { width: 100%;}
+  .register-area {
+    width: 100%;
+  }
+  .register-title-area {
+    height: 100%;
+    background-color: rgba(167, 236, 255, 0.49);
+  }
 }

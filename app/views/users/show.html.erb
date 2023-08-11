@@ -1,14 +1,67 @@
-<div class='account_page'>
-  <h3>プロフィール</h3>
-  <table class='account_table'>
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <th>パスワード</th>
-      <td>**********</td>
-    </tr>
-  </table>
+<div class="top">
+  <div class="show-image-class">
+    <div class="show-image-area">
+      <div class="show-mypage-area">
+        <div class="show-top">
+          <div class="show-mypage">
+            <div class="defult-image">
+              <%= image_tag "user_imge/defult_user.png" %>
+            </div>
+            <div class="edit-area">
+              <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage"%>
+            </div>
+          </div>
+          <div class="show-user"><%= @user.name %>12345678912345678</div>
+          <div class="show-top-footer">
+            <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
+              <span class="border border-secondary"></span>
+              <li class="list-group-item">
+                旅行プラン投稿数
+              </li>
+              <span class="border border-secondary"></span>
+              <li class="list-group-item">
+                いいね数
+              </li>
+              <span class="border border-secondary"></span>
+              <li class="list-group-item">
+                旅行数
+              </li>
+              <span class="border border-secondary"></span>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-contents">
+      <div class="tab-area d-flex justify-content-around">
+        <div class="tab active border-2 border-start border-end border-secondary" data-value='1' >
+          <h3>セット中の旅行プラン</h3>
+        </div>
+        <div class="tab border-2 border-start border-end border-secondary" data-value='2' >
+          <h3>いいね履歴</h3>
+        </div>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="content show">
+        <%= render partial: 'shared/set_travel' %>
+      </div>
+      <div class="content">
+        <%= render partial: 'shared/header' %>
+      </div>
+      <div class="sell-btn-contents">
+      </div>
+    </div>
+  </div>
 </div>
-<li class="menu_li"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete%></li>
+<script>
+document.addEventListener("turbolinks:load", function() {
+  let tabs = $(".tab");
+  tabs.on("click", function() {
+    $(".active").removeClass("active");
+    $(this).addClass("active");
+    const index = tabs.index(this);
+    $(".content").removeClass("show").eq(index).addClass("show");
+  })
+})
+</script>

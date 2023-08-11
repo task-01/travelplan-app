@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_09_055637) do
+ActiveRecord::Schema.define(version: 2023_08_09_112127) do
+
+  create_table "travelplan_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "travelplan_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "travelplans", force: :cascade do |t|
     t.string "travelplanName"
     t.integer "user_id"
     t.date "end_date"
     t.date "start_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "travelplanusers", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "travelplan_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
