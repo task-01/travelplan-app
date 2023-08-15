@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     root_path
   end
+
   def set_common_variable
     @client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
   end

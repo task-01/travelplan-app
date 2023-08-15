@@ -1,7 +1,7 @@
 <div class="top">
   <div class="top-image-class">
     <div class="top-image-area w-75 mx-auto">
-      <%= image_tag 'https://content.es-ws.jp/cpool/1163/000/000/044/293/mv_overseas_sp.jpg', class: 'top-image' %>
+      <%= image_tag 'back_image/travel_image.png', class: 'top-image' %>
     </div>
   </div>
   <div class="text-area">
@@ -24,7 +24,7 @@
           </div>
           <div class="login-link">
             <%= link_to "ログインはこちら", new_user_session_path, class: "login-value" %>
-            <%= link_to "ゲストログインはちら", users_guest_sign_in_path, class: "login-value" %>
+            <%= link_to "ゲストログインはちら", users_guest_sign_in_path, class: "login-value", method: :post %>
           </div>
         <% end %>
       </div>

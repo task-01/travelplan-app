@@ -20,7 +20,12 @@ ActiveRecord::Schema.define(version: 2023_08_09_112127) do
   end
 
   create_table "travelplans", force: :cascade do |t|
-    t.string "travelplanName"
+    t.string "travelplan_name"
+    t.string "prefecture_name"
+    t.string "tourist_spot"
+    t.integer "number_day"
+    t.text "content_chat"
+    t.text "gpt_response"
     t.integer "user_id"
     t.date "end_date"
     t.date "start_date"

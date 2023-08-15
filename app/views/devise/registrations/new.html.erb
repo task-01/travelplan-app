@@ -48,7 +48,7 @@
             <hr class="hr_border mt-5 mb-3">
             <div class="under-forms pb-3">
               <p>すでにアカウントをお持ちの場合は、<%= render "devise/shared/links" %>してください</p>
-              <p>アカウントを作成しないで利用する場合は<%= render "devise/shared/links" %>を押してください</p>
+              <p>アカウントを作成しないで利用する場合は<%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>を押してください</p>
             </div>
           </div>
         </div>

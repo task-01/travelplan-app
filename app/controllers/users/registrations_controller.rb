@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :ensure_normal_user, only: %i[update destroy]
+  before_action :ensure_normal_user, only: %i(update destroy)
 
   def ensure_normal_user
     if resource.email == 'guest@example.com'

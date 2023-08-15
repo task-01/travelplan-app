@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :travelplanusers
-  has_many :join_travelplans, through: :travelplanusers, source: :travelplan
+  has_many :travelplan_users
+  has_many :travelplans, through: :travelplan_users, source: :travelplan
 
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
