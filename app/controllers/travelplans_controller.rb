@@ -18,25 +18,9 @@ class TravelplansController < ApplicationController
   end
 
   def create
-    @travelplan = Travelplan.new(content_params)
-    @client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
-    question = "#{@travelplan.content_chat}の旅行プランを1日目 朝食~, 午前~, 昼食, 午後, 夕方, 夕食, 宿泊、
-    2日目 朝食~, 午前~, 昼食, 午後, 夕方, 夕食, 宿泊, といった日付軸の形式で省略せずに全ての日数を1日つづ提案してください、
-    また#{@travelplan.tourist_spot}が入力されている時はそれを含んだ旅行プランを提案してください"
-    response = @client.chat(
-      parameters: {
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: question }],
-        temperature: 0.3,
-      }
-    )
-    @travelplan.gpt_response = response.dig('choices', 0, 'message', 'content')
-    if @travelplan.save
-      TravelplanUser.create(user: current_user, travelplan: @travelplan)
-      redirect_to user_path(@travelplan.user_id)
-    else
-      render :new
-    end
+    TravelplanCreationJob.perform_later(content_params, current_user.id)
+
+    redirect_to user_path(current_user.id)
   end
 
   def show

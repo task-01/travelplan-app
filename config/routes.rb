@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
   
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -14,4 +15,6 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
     root 'travelplans#home'
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 end

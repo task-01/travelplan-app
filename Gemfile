@@ -74,3 +74,4 @@ gem "ruby-openai"
 gem 'rails-i18n'
 gem 'dotenv-rails'
 gem 'aws-sdk-s3'
+gem 'sidekiq'
