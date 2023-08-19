@@ -12,6 +12,10 @@ module TravelplanApp01
     config.load_defaults 6.1
     config.i18n.default_locale = :ja
     config.active_job.queue_adapter = :sidekiq
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Request-Method' => %w{GET POST PUT PATCH DELETE OPTIONS}.join(',')
+    }
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
