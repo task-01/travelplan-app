@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2023_08_15_205726) do
     t.string "travelplan_name"
     t.string "prefecture_name"
     t.string "tourist_spot"
+    t.string "job_status"
     t.integer "number_day"
     t.text "content_chat"
     t.text "gpt_response"

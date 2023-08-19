@@ -13,25 +13,32 @@ class TravelplansController < ApplicationController
       "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県",
       "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県",
     ]
-    @number_days = ["1日", "2日間", "3日間", "4日間", "5日間", "6日間", "7日間"]
+    @number_days = ["1日", "2日間", "3日間", "4日間", "5日間"]
     @travelplan = Travelplan.new
   end
 
   def create
     TravelplanCreationJob.perform_later(content_params, current_user.id)
-
+    flash[:notice] = "旅行プラン作成中ですこれには時間が掛かる場合があります..."
     redirect_to user_path(current_user.id)
   end
 
   def show
-    @user = User.find_by(params[:travelplan][:user_id])
+    @user = User.find_by(id: params[:travelplan][:user_id])
     @travelplan = Travelplan.find(params[:id])
+  end
+
+  def set_in_progress
+    @travelplan = Travelplan.find(params[:id])
+    @travelplan.job_status = "in_progress"
+    @travelplan.save
+    render json: { status: 'success' }
   end
 
   private
 
   def content_params
     params.require(:travelplan).permit(:gpt_response, :travelplan_name, :prefecture_name,
-:tourist_spot, :number_day, :content_chat, :user_id, :end_date, :start_date)
+    :tourist_spot, :number_day, :content_chat, :user_id, :end_date, :start_date)
   end
 end

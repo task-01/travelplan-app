@@ -6,8 +6,7 @@ class Travelplan < ApplicationRecord
 
   def fetch_gpt_response
     client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
-    days_plan = (1..self.number_day).map { |day| "#{day}日目 朝食~, 午前~, 昼食, 午後, 夕方, 夕食, 宿泊" }.join(', ')
-    question = "#{self.content_chat}の旅行プランを#{days_plan}の形式で全ての日数を1日つづ提案してください。"
+    question = "#{self.content_chat}の日次の旅行プランをリスト形式で教えてください。"
 
     response = client.chat(
       parameters: {

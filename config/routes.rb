@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   }
   get 'travelplans/home/:id', to: 'travelplans#home', as: 'travelplans_home'
 
-  resources :travelplans
+  resources :travelplans  do
+    member do
+      post :set_in_progress
+    end
+  end
   resources :users, only: [:show]
 
   devise_scope :user do

@@ -26,7 +26,7 @@
     <% if !plan_content.empty? %>
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="travel-text-area">
-          <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter %>day</h5>
+          <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter.zero? ? 1 : day_counter %>day</h5>
           <hr width="ms-2 me-auto auto">
           <% plan_content.each do |content| %>
             <p class="ms-2 me-auto"><%= content.gsub('-', '').strip %></p>

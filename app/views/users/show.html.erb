@@ -1,43 +1,50 @@
-<div class="top">
+<% if flash[:notice] %>
+  <div class="notification" id="flash-message">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="top" data-turbolinks-permanent data-page-id="<%= @user.id %>" data-travelplan-id="<%= @travelplan&.id %>">
   <div class="show-image-class">
     <% if @travelplan && @travelplan.prefecture_name&.match?(/都|道|府|県/) %>
-    <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(@travelplan.prefecture_name)}.png" %>
-    <div class="prefecture-image-area" 
-      style="background-image: url('<%= image_url %>');">
-    <h1 class="travelplan_prefecture_name"><%= @travelplan.prefecture_name %></h1>
+      <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(@travelplan.prefecture_name)}.png" %>
+      <div class="prefecture-image-area" 
+        style="background-image: url('<%= image_url %>');">
     <% else %>
-    <div class="show-image-area">
+      <div class="show-image-area">
     <% end %>
-      <div class="show-mypage-area">
-        <div class="show-top">
-          <div class="show-mypage">
-            <div class="defult-image">
-              <%= image_tag "user_image/defult_user.png" %>
-            </div>
-            <div class="edit-area">
-              <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage"%>
-            </div>
+    <div class="show-mypage-area">
+      <div class="show-top">
+        <div class="show-mypage">
+          <div class="defult-image">
+            <%= image_tag "user_image/defult_user.png" %>
           </div>
-          <div class="show-user"><%= @user.name %>12345678912345678</div>
-          <div class="show-top-footer">
-            <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
-              <span class="border border-secondary"></span>
-              <li class="list-group-item">
-                旅行プラン投稿数
-              </li>
-              <span class="border border-secondary"></span>
-              <li class="list-group-item">
-                いいね数
-              </li>
-              <span class="border border-secondary"></span>
-              <li class="list-group-item">
-                旅行数
-              </li>
-              <span class="border border-secondary"></span>
-            </ul>
+          <div class="edit-area">
+            <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage"%>
           </div>
         </div>
+        <div class="show-user"><%= @user.name %>12345678912345678</div>
+        <div class="show-top-footer mt-4">
+          <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
+            <span class="border border-secondary"></span>
+            <li class="list-group-item">
+              旅行プラン投稿数
+            </li>
+            <span class="border border-secondary"></span>
+            <li class="list-group-item">
+              いいね数
+            </li>
+            <span class="border border-secondary"></span>
+            <li class="list-group-item">
+              旅行数
+            </li>
+            <span class="border border-secondary"></span>
+          </ul>
+          <% if @travelplan&.prefecture_name.present? %>
+            <h1 class="travelplan_prefecture_name mt-3"><%= @travelplan.prefecture_name %></h1>
+          <% end %>
+        </div>
       </div>
+    </div>
     </div>
     <div class="item-contents">
       <div class="tab-area d-flex justify-content-around">
@@ -68,6 +75,42 @@
   </div>
 </div>
 <script>
+function updateNotificationArea() {
+  const pageId = $(".top").data("page-id");
+  const travelplanId = $(".top").data("travelplan-id");
+  $.ajax({
+    url: "/users/" + pageId,
+    type: 'GET',
+    dataType: 'json',
+    headers: {
+      'Accept': 'application/json'
+    },
+    success: function(response) {
+      if (response.job_status === "completed") {
+        $.ajax({
+          url: `/travelplans/${travelplanId}/set_in_progress`,
+          type: 'POST',
+          dataType: 'json',
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+          },
+          success: function(innerResponse) {
+            if (innerResponse.status === 'success') {
+              location.reload();
+              $('#flash-message').text('旅行プランの作成が完了しました！');
+            }
+          },
+        });
+      } else {
+        console.log(response.job_status);
+        setTimeout(function() {
+          updateNotificationArea();
+        }, 3000);
+      }
+    },
+  });
+};
+
 document.addEventListener("turbolinks:load", function() {
   let tabs = $(".tab");
   tabs.on("click", function() {
@@ -75,6 +118,7 @@ document.addEventListener("turbolinks:load", function() {
     $(this).addClass("active");
     const index = tabs.index(this);
     $(".content").removeClass("show").eq(index).addClass("show");
-  })
+  });
+  updateNotificationArea();
 });
 </script>

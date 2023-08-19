@@ -1,0 +1,18 @@
+2023-08-18 09:28:14.870 JST [83099] FATAL:  lock file "postmaster.pid" already exists
+2023-08-18 09:28:14.870 JST [83099] HINT:  Is another postmaster (PID 83019) running in data directory "/opt/homebrew/var/postgresql@14"?
+2023-08-18 09:29:10.037 JST [83215] FATAL:  lock file "postmaster.pid" already exists
+2023-08-18 09:29:10.037 JST [83215] HINT:  Is another postmaster (PID 83184) running in data directory "/opt/homebrew/var/postgresql@14"?
+2023-08-18 09:30:17.682 JST [83379] FATAL:  lock file "postmaster.pid" already exists
+2023-08-18 09:30:17.682 JST [83379] HINT:  Is another postmaster (PID 83353) running in data directory "/opt/homebrew/var/postgresql@14"?
+2023-08-18 09:32:01.493 JST [83524] FATAL:  pre-existing shared memory block (key 54336376, ID 7340032) is still in use
+2023-08-18 09:32:01.493 JST [83524] HINT:  Terminate any old server processes associated with data directory "/opt/homebrew/var/postgresql@14".
+2023-08-18 09:32:01.493 JST [83524] LOG:  database system is shut down
+2023-08-18 09:34:08.008 JST [83768] FATAL:  pre-existing shared memory block (key 54336376, ID 7536640) is still in use
+2023-08-18 09:34:08.008 JST [83768] HINT:  Terminate any old server processes associated with data directory "/opt/homebrew/var/postgresql@14".
+2023-08-18 09:34:08.008 JST [83768] LOG:  database system is shut down
+2023-08-18 09:36:39.335 JST [84054] FATAL:  lock file "postmaster.pid" already exists
+2023-08-18 09:36:39.335 JST [84054] HINT:  Is another postmaster (PID 84025) running in data directory "/opt/homebrew/var/postgresql@14"?
+2023-08-18 09:37:17.799 JST [84131] FATAL:  lock file "postmaster.pid" already exists
+2023-08-18 09:37:17.799 JST [84131] HINT:  Is another postmaster (PID 84103) running in data directory "/opt/homebrew/var/postgresql@14"?
+2023-08-18 09:45:30.060 JST [84983] FATAL:  lock file "postmaster.pid" already exists
+2023-08-18 09:45:30.060 JST [84983] HINT:  Is another postmaster (PID 84547) running in data directory "/opt/homebrew/var/postgresql@14"?

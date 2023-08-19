@@ -4,6 +4,7 @@ class CreateTravelplans < ActiveRecord::Migration[6.1]
       t.string :travelplan_name
       t.string :prefecture_name
       t.string :tourist_spot
+      t.string :job_status
       t.integer :number_day
       t.text :content_chat
       t.text :gpt_response
