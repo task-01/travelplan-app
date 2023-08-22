@@ -1,5 +1,5 @@
 <% if flash[:notice] %>
-  <div class="notification" id="flash-message">
+  <div id="flash-message" class="flash-message">
     <%= flash[:notice] %>
   </div>
 <% end %>
@@ -16,13 +16,13 @@
       <div class="show-top">
         <div class="show-mypage">
           <div class="defult-image">
-            <%= image_tag "user_image/defult_user.png" %>
+            <%= image_tag "user_image/user_image.png" %>
           </div>
           <div class="edit-area">
             <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage"%>
           </div>
         </div>
-        <div class="show-user"><%= @user.name %>12345678912345678</div>
+        <div class="show-user"><%= @user.name %></div>
         <div class="show-top-footer mt-4">
           <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
             <span class="border border-secondary"></span>
@@ -39,9 +39,6 @@
             </li>
             <span class="border border-secondary"></span>
           </ul>
-          <% if @travelplan&.prefecture_name.present? %>
-            <h1 class="travelplan_prefecture_name mt-3"><%= @travelplan.prefecture_name %></h1>
-          <% end %>
         </div>
       </div>
     </div>
@@ -69,7 +66,7 @@
         <p>こんち</p>
       </div>
       <div class="content">
-        <p>こんにちは</p>
+        <%= render 'shared/travelplan_history' %>
       </div>
     </div>
   </div>
@@ -97,7 +94,7 @@ function updateNotificationArea() {
           success: function(innerResponse) {
             if (innerResponse.status === 'success') {
               location.reload();
-              $('#flash-message').text('旅行プランの作成が完了しました！');
+
             }
           },
         });
