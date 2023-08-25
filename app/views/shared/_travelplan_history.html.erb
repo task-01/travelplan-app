@@ -1,57 +1,55 @@
 <% @travelplans.each do |travelplan| %>
-  <% if travelplan.gpt_response.present? %>
-    <% if travelplan && travelplan.prefecture_name&.match?(/都|道|府|県/) %>
-      <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(travelplan.prefecture_name)}.png" %>
-      <div class="title-image-area mb-3" style="background-image: url('<%= image_url %>');">
+  <% if travelplan && travelplan.prefecture_name&.match?(/都|道|府|県/) %>
+    <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(travelplan.prefecture_name)}.png" %>
+    <div class="title-image-area mb-3" style="background-image: url('<%= image_url %>');">
+  <% end %>
+    <% if @travelplan&.present? %>
+      <h3 class="text-white"><%= @travelplan.travelplan_name %></h3>
     <% end %>
-      <div class="d-flex flex-row bd-highlight travels-prefecture">
-        <h1 class="travelplan_prefecture_name"><%= travelplan.prefecture_name %></h1>
-        <% if travelplan.travelplan_name? %>
-          <title><% travelplan.travelplan_name %></title>
-        <% end %>
-        <p class="text-white mt-4 travelplans-day">宿泊日数：<%= travelplan.number_day %>泊</p>
-        <p class="text-white detail">詳細</p>
-      </div>
-      <div class="set-travels-area">
-        <ol class="d-flex flex-wrap list-group">
-          <% response_lines = travelplan.gpt_response.split("\n") %>
-          <% day_counter = 0 %>
-          <% plan_content = [] %>
-          <% response_lines.each do |line| %>
-            <% if line.match?(/Day|日目/) && !plan_content.empty? && day_counter != 0 %>
-              <li class="travals-history list-group-item bg-transparent border-0">
-                <div class="travel-text-area">
-                  <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter %>day</h5>
-                  <hr width="ms-2 me-auto auto">
-                  <% plan_content.each do |content| %>
-                    <p class="ms-2 me-auto"><%= content.gsub('-', '').strip %></p>
-                  <% end %>
-                </div>
-              </li>
-              <% plan_content.clear %>
-              <% day_counter += 1 %>
-            <% elsif line.match?(/Day|日目/) %>
-              <% day_counter += 1 %>
-            <% else %>
-              <% plan_content << line %>
-            <% end %>
-          <% end %>
-          <% if !plan_content.empty? %>
+    <div class="d-flex flex-row bd-highlight travels-prefecture">
+      <h1 class="travelplan_prefecture_name"><%= travelplan.prefecture_name %></h1>
+      <p class="text-white mt-4 travelplans-day">宿泊日数：<%= travelplan.number_day %>泊</p>
+      <p class="text-white detail">詳細</p>
+    </div>
+    <div class="set-travels-area">
+      <ol class="d-flex flex-wrap list-group">
+        <% response_lines = travelplan.gpt_response.split("\n") %>
+        <% day_counter = 0 %>
+        <% plan_content = [] %>
+        <% response_lines.each do |line| %>
+          <% if line.match?(/Day|日目/) && !plan_content.empty? && day_counter != 0 %>
             <li class="travals-history list-group-item bg-transparent border-0">
               <div class="travel-text-area">
-                <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter.zero? ? 1 : day_counter %>day</h5>
+                <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter %>day</h5>
                 <hr width="ms-2 me-auto auto">
                 <% plan_content.each do |content| %>
                   <p class="ms-2 me-auto"><%= content.gsub('-', '').strip %></p>
                 <% end %>
               </div>
             </li>
+            <% plan_content.clear %>
+            <% day_counter += 1 %>
+          <% elsif line.match?(/Day|日目/) %>
+            <% day_counter += 1 %>
+          <% else %>
+            <% plan_content << line %>
           <% end %>
-        </ol>
-        <button class="close-button">閉じる</button>
-      </div>
+        <% end %>
+        <% if !plan_content.empty? %>
+          <li class="travals-history list-group-item bg-transparent border-0">
+            <div class="travel-text-area">
+              <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter.zero? ? 1 : day_counter %>day</h5>
+              <hr width="ms-2 me-auto auto">
+              <% plan_content.each do |content| %>
+                <p class="ms-2 me-auto"><%= content.gsub('-', '').strip %></p>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+      <button class="close-button">閉じる</button>
     </div>
-  <% end %>
+  </div>
 <% end %>
 <script>
 $(document).ready(function() {

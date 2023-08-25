@@ -1,8 +1,13 @@
-<% if flash[:notice] %>
-  <div id="flash-message" class="flash-message">
-    <%= flash[:notice] %>
+<% if session[:kept_flash] %>
+  <div id="flash-message" class="px-3 flash-message bg-warning">
+    <%= session[:kept_flash] %>
   </div>
 <% end %>
+<% if @travelplan&.present? || @user.first_travelplan %> 
+  <div id="loading-animation" class="loading-animation">
+    <div class="loading-bar"></div>
+  </div>
+<% end %> 
 <div class="top" data-turbolinks-permanent data-page-id="<%= @user.id %>" data-travelplan-id="<%= @travelplan&.id %>">
   <div class="show-image-class">
     <% if @travelplan && @travelplan.prefecture_name&.match?(/都|道|府|県/) %>
@@ -15,15 +20,17 @@
     <div class="show-mypage-area">
       <div class="show-top">
         <div class="show-mypage">
-          <div class="defult-image">
-            <%= image_tag "user_image/user_image.png" %>
+          <div class="user-section">
+            <div class="defult-image">
+              <%= image_tag "user_image/user_image.png" %>
+            </div>
+            <div class="show-user"><%= @user.name %></div>
           </div>
           <div class="edit-area">
-            <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage"%>
+            <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage" %>
           </div>
         </div>
-        <div class="show-user"><%= @user.name %></div>
-        <div class="show-top-footer mt-4">
+        <div class="show-top-footer mt-5">
           <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
             <span class="border border-secondary"></span>
             <li class="list-group-item">
@@ -43,32 +50,34 @@
       </div>
     </div>
     </div>
-    <div class="item-contents">
-      <div class="tab-area d-flex justify-content-around">
-        <div class="tab active border-2 border-start border-end border-secondary" data-value='1' >
-          <h3>セット中の旅行プラン</h3>
-        </div>
-        <div class="tab border-2 border-start border-end border-secondary" data-value='2' >
-          <h3>いいね履歴</h3>
-        </div>
-        <div class="tab border-2 border-start border-end border-secondary" data-value='3' >
-          <h3>旅行プラン履歴</h3>
+    <% if @travelplan&.present? %>
+      <div class="item-contents">
+        <div class="tab-area d-flex justify-content-around">
+          <div class="tab active border-2 border-start border-end border-secondary" data-value='1' >
+            <h3>セット中の旅行プラン</h3>
+          </div>
+          <div class="tab border-2 border-start border-end border-secondary" data-value='2' >
+            <h3>いいね履歴</h3>
+          </div>
+          <div class="tab border-2 border-start border-end border-secondary" data-value='3' >
+            <h3>旅行プラン履歴</h3>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="content-area">
-      <div class="content show">
-        <% if @travelplan&.gpt_response&.present? %>
+      <div class="content-area">
+        <div class="content show">
           <%= render 'shared/set_travel' %>
-        <% end %>
+        </div>
+        <div class="content">
+          <p>こんち</p>
+        </div>
+        <div class="content">
+          <%= render 'shared/travelplan_history' %>
+        </div>
       </div>
-      <div class="content">
-        <p>こんち</p>
-      </div>
-      <div class="content">
-        <%= render 'shared/travelplan_history' %>
-      </div>
-    </div>
+    <% else %>
+      <%= render 'shared/default_show' %>
+    <% end %>
   </div>
 </div>
 <script>
@@ -84,6 +93,7 @@ function updateNotificationArea() {
     },
     success: function(response) {
       if (response.job_status === "completed") {
+        $('.loading-bar').css('animation-play-state', 'paused').css('width', '100%');
         $.ajax({
           url: `/travelplans/${travelplanId}/set_in_progress`,
           type: 'POST',
@@ -91,15 +101,12 @@ function updateNotificationArea() {
           beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
           },
-          success: function(innerResponse) {
-            if (innerResponse.status === 'success') {
-              location.reload();
-
-            }
-          },
         });
+        location.reload();
       } else {
-        console.log(response.job_status);
+        if ($('.loading-bar').width() >= $('.loading-bar').parent().width() * 0.85) {
+          $('.loading-bar').css('animation-play-state', 'paused');
+        }
         setTimeout(function() {
           updateNotificationArea();
         }, 3000);
@@ -109,13 +116,23 @@ function updateNotificationArea() {
 };
 
 document.addEventListener("turbolinks:load", function() {
-  let tabs = $(".tab");
+  const currentTravelPlanId = $(".top").data("travelplan-id");
+  const previousTravelPlanId = localStorage.getItem("travelplanId");
+  if (currentTravelPlanId != previousTravelPlanId) {
+    $("#loading-animation").show();
+  } else {
+    $("#flash-message").text("旅行プランが作成されました！");
+    $("#loading-animation").hide();
+  }
+  localStorage.setItem("travelplanId", currentTravelPlanId);
+  const tabs = $(".tab");
   tabs.on("click", function() {
     $(".active").removeClass("active");
     $(this).addClass("active");
     const index = tabs.index(this);
     $(".content").removeClass("show").eq(index).addClass("show");
   });
+  
   updateNotificationArea();
 });
 </script>

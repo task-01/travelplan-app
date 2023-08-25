@@ -18,9 +18,16 @@ class TravelplansController < ApplicationController
   end
 
   def create
-    TravelplanCreationJob.perform_later(content_params, current_user.id)
-    flash[:notice] = "旅行プラン作成中ですこれには時間が掛かる場合があります..."
-    redirect_to user_path(current_user.id)
+    @travelplan = Travelplan.new(content_params.merge(job_status: "in_progress"))
+    if @travelplan.save
+      current_user.update(first_travelplan: true)
+      TravelplanCreationJob.perform_later(@travelplan.id, current_user.id)
+      session[:kept_flash] = "旅行プラン作成中ですこれには時間が掛かる場合があります..."
+      redirect_to user_path(current_user.id)
+    else
+      flash[:alert] = "旅行プランの作成に失敗しました。再試行してください。"
+      render :new
+    end
   end
 
   def show
