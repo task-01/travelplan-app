@@ -1,6 +1,8 @@
 class Travelplan < ApplicationRecord
   has_many :travelplan_users
   has_many :users, through: :travelplan_users, source: :user
+  has_many :likes
+  has_many :likers, through: :likes, source: :user
 
   has_one_attached :prefecture_image
 
@@ -21,5 +23,38 @@ class Travelplan < ApplicationRecord
     Rails.logger.info("OpenAI API Response time: #{elapsed_time} seconds")
 
     response.dig('choices', 0, 'message', 'content')
+  end
+
+  def like(travelplan)
+    likes.create(travelplan_id: travelplan.id)
+  end
+  
+  def unlike(travelplan)
+    likes.find_by(travelplan_id: travelplan.id).destroy
+  end
+  
+  def liked?(travelplan)
+    liked_travelplans.include?(travelplan)
+  end
+
+  scope :sorted_by_likes, -> {
+    left_joins(:likes)
+      .select('travelplans.*, COUNT(likes.id) AS likes_count')
+      .group('travelplans.id')
+      .order('COUNT(likes.id) DESC')
+  }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      content_chat created_at end_date gpt_response job_status 
+      number_day prefecture_name start_date tourist_spot 
+      travelplan_name updated_at
+    ]
+  end
+  def self.ransackable_associations(auth_object = nil)
+    %w[
+      prefecture_image_attachment prefecture_image_blob 
+      travelplan_users users
+    ]
   end
 end

@@ -1,0 +1,3 @@
+$("#like-button-<%= @travelplan.id %>").replaceWith('<%= j link_to "", create_like_travelplan_path(@travelplan), 
+  method: :post, remote: true, class: "far fa-heart btn btn-outline-secondary like-button", id: "like-button-#{@travelplan.id}" %>');
+<% likes_count = @travelplan.likes.count %>

@@ -1,0 +1,6 @@
+<% if user_signed_in? && current_user.following?(user) %>
+  <%= link_to "フォロー外す", follow_path(id: user.id), method: :delete, class: "btn btn-outline-danger" %>
+<% else %>
+  <%= link_to "フォローする", follows_path(user_id: user.id), method: :post, class: "btn btn-danger text-white" %>
+<% end %>
+

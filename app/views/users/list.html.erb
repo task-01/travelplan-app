@@ -1,0 +1,64 @@
+<div class="top">
+  <div class="travelplan_search_area">
+    <div class="search_area">
+      <div class="search_form">
+        <h1 class="fw-bold">ユーザー一覧</h1>
+        <p class="fs-5">ユーザー一覧では、アカウント作成済みの全ユーザーを掲載しています。ユーザー名検索やフォローやフォロワーの並び替えが可能です。</p>
+        <p class="fs-5">総ユーザー数: <%= @user_count %>人</p>
+      </div>
+    </div>
+  </div>
+  <div class="travelplan_list">
+    <div class="sort_filter_area mb-3 pb-2">
+      <div class="border-start border-end border-secondary border-3 sort-lists">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <%= form_with url: list_users_path, method: :get, local: true, class: "" do |f| %>
+            <%= text_field_tag :name, params[:name], placeholder: "ユーザー名検索", class: "me-3" %>
+            <%= f.submit "検索", class: "ms-3 btn btn-primary" %>
+          <% end %>
+          <div>
+            <span>並び替え</span>
+            <%= link_to '新しい順', list_users_path(sort_order: 'newest', name: params[:name]),
+              class: "border-3 mx-1 #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to 'フォロー数順', list_users_path(sort_order: 'follow', name: params[:name]),
+              class: "border-3 mx-1 #{params[:sort_order] == 'follow' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to 'フォロワー数順', list_users_path(sort_order: 'followers', name: params[:name]),
+              class: "border-3 mx-1 #{params[:sort_order] == 'followers' ? 'text-dark' : 'text-white'}" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container users-container">
+      <hr class="mt-0 mb-0">
+      <% @users.each do |user| %>
+        <div class="users-list d-flex align-items-center pt-2 justify-content-between">
+          <div class="d-flex align-items-center">
+            <div class="users-img">
+              <% if user.image.attached? %>
+                <div class="header-user-image list-image">
+                  <%= image_tag user.image %>
+                </div>
+              <% else %>
+                <div class="header-defult-image list-image">
+                  <%= image_tag "user_image/user_image.png" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="users-list-name left ms-3">
+              <h5 class="mt-0 mb-0"><%= user.name %></h5>
+              <span>フォロー数:<%= user.active_follows.count || 0 %></span>
+              <span>フォロワー数:<%= user.passive_follows.count || 0 %></span>
+            </div>
+          </div>
+          <div class="users-list-name right">
+            <%= render 'shared/follows', user: user %>
+            <%= link_to "プロフィール", user_path(user.id), class: "btn btn-link" %>
+          </div>
+        </div>
+        <hr class="mt-0 mb-0">
+      <% end %>
+    </div>
+  </div>
+</div>

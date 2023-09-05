@@ -1,13 +1,13 @@
-<% if session[:kept_flash] %>
+<% if flash[:notice] %>
   <div id="flash-message" class="px-3 flash-message bg-warning">
-    <%= session[:kept_flash] %>
+    <%= flash[:notice] %>
   </div>
 <% end %>
-<% if @travelplan&.present? || @user.first_travelplan %> 
+<% if @user.job_status != "completed" && current_user.id == @user.id %>
   <div id="loading-animation" class="loading-animation">
     <div class="loading-bar"></div>
   </div>
-<% end %> 
+<% end %>
 <div class="top" data-turbolinks-permanent data-page-id="<%= @user.id %>" data-travelplan-id="<%= @travelplan&.id %>">
   <div class="show-image-class">
     <% if @travelplan && @travelplan.prefecture_name&.match?(/都|道|府|県/) %>
@@ -21,28 +21,66 @@
       <div class="show-top">
         <div class="show-mypage">
           <div class="user-section">
-            <div class="defult-image">
-              <%= image_tag "user_image/user_image.png" %>
-            </div>
+            <% if @user.image.attached? %>
+              <div class="user_image">
+                <%= image_tag @user.image %>
+              </div>
+            <% else %>
+              <div class="defult-image">
+                <%= image_tag "user_image/user_image.png" %>
+              </div>
+            <% end %>
             <div class="show-user"><%= @user.name %></div>
+            <div class="d-flex">
+              <span>フォロー数:<%= @user.active_follows.count || 0 %>,</span>
+              <span>フォロワー数:<%= @user.passive_follows.count || 0 %></span>
+            </div>
           </div>
-          <div class="edit-area">
-            <%= link_to "プロフィール編集", "#", class: "btn btn-secondary editpage" %>
+          <% if user_signed_in? && current_user.id == @user.id %>
+            <div class="edit-area">
+              <button type="button" class="btn btn-secondary editpage" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                プロフィール編集
+              </button>
+            </div>
+          <% end %>
+        </div>
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">プロフィール編集</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div style="max-height: 500px; overflow-y: auto;">
+                  <%= render 'shared/edit' %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="show-top-footer mt-5">
           <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
             <span class="border border-secondary"></span>
-            <li class="list-group-item">
+            <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
               旅行プラン投稿数
+              <div class="count-value">
+                <%= @user.travelplans.count %>
+              </div>
             </li>
             <span class="border border-secondary"></span>
-            <li class="list-group-item">
+            <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
               いいね数
+              <div class="count-value">
+                <%= @user.likes.count %>
+              </div>
             </li>
             <span class="border border-secondary"></span>
-            <li class="list-group-item">
-              旅行数
+            <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
+              作成旅行プラン数
+              <div class="count-value">
+                <%= @user.travelplans.count %>
+              </div>
             </li>
             <span class="border border-secondary"></span>
           </ul>
@@ -60,7 +98,7 @@
             <h3>いいね履歴</h3>
           </div>
           <div class="tab border-2 border-start border-end border-secondary" data-value='3' >
-            <h3>旅行プラン履歴</h3>
+            <h3>旅行プラン作成履歴</h3>
           </div>
         </div>
       </div>
@@ -69,7 +107,7 @@
           <%= render 'shared/set_travel' %>
         </div>
         <div class="content">
-          <p>こんち</p>
+          <%= render 'shared/like_history' %>
         </div>
         <div class="content">
           <%= render 'shared/travelplan_history' %>
@@ -95,6 +133,14 @@ function updateNotificationArea() {
       if (response.job_status === "completed") {
         $('.loading-bar').css('animation-play-state', 'paused').css('width', '100%');
         $.ajax({
+          url: `/users/${pageId}/update_job_status`,
+          type: 'PATCH',
+          dataType: 'json',
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+          },
+        });
+        $.ajax({
           url: `/travelplans/${travelplanId}/set_in_progress`,
           type: 'POST',
           dataType: 'json',
@@ -102,6 +148,7 @@ function updateNotificationArea() {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
           },
         });
+        localStorage.setItem("showFlashAfterReload", "true");
         location.reload();
       } else {
         if ($('.loading-bar').width() >= $('.loading-bar').parent().width() * 0.85) {
@@ -116,15 +163,9 @@ function updateNotificationArea() {
 };
 
 document.addEventListener("turbolinks:load", function() {
-  const currentTravelPlanId = $(".top").data("travelplan-id");
   const previousTravelPlanId = localStorage.getItem("travelplanId");
-  if (currentTravelPlanId != previousTravelPlanId) {
-    $("#loading-animation").show();
-  } else {
-    $("#flash-message").text("旅行プランが作成されました！");
-    $("#loading-animation").hide();
-  }
-  localStorage.setItem("travelplanId", currentTravelPlanId);
+  const currentTravelPlanId = $(".top").data("travelplan-id");
+  const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
   const tabs = $(".tab");
   tabs.on("click", function() {
     $(".active").removeClass("active");
@@ -132,7 +173,19 @@ document.addEventListener("turbolinks:load", function() {
     const index = tabs.index(this);
     $(".content").removeClass("show").eq(index).addClass("show");
   });
-  
   updateNotificationArea();
+  $('.editpage').on('click', function() {
+    editProfileModal.show();
+  });
+  $('.btn-close').on('click', function() {
+    editProfileModal.hide();
+  });
+  const showFlashAfterReload = localStorage.getItem("showFlashAfterReload");
+  if (showFlashAfterReload) {
+    const flashMessageContent = "旅行プランが作成されました";
+    const flashElement = `<div id="flash-message" class="px-3 flash-message bg-warning">${flashMessageContent}</div>`;
+    $("header").after(flashElement);
+    localStorage.removeItem("showFlashAfterReload");
+  }
 });
 </script>

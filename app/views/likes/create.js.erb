@@ -1,0 +1,3 @@
+$("#like-button-<%= @travelplan.id %>").replaceWith('<%= j link_to "", destroy_like_travelplan_path(@travelplan), 
+  method: :delete, remote: true, class: "fas fa-heart btn btn-outline-danger like-button like", id: "like-button-#{@travelplan.id}" %>');
+<% likes_count = @travelplan.likes.count %>
