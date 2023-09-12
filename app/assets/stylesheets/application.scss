@@ -68,25 +68,36 @@
   transition: transform 0.3s;
 }
 
-.travelplan_search_area {
+.travelplan_search_area, .user_acount_area {
   width: 100%;
   background-image:url("back_image/travel_image.png");
   background-size: 100% 100%;
-  height: 300px;
+  height: 200px;
   margin-bottom: 30px;
 }
 
-.search_area {
-  height: 300px;
+.search_area, .acount_image_area {
+  height: 200px;
   background: rgba(255, 255, 255, 0.663);
   margin: 0 auto;
 }
 
-.search_form {
+.search_form, .acount_title {
   padding-top: 50px;
   font-family: "kaisei-harunoumi", sans-serif;
   max-width: 980px;
   margin: 0 auto;
+}
+
+.acount_container {
+  max-width: 750px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #000000;
+  background-color: #a98f8f78;
 }
 
 .travelplan_list {
@@ -130,6 +141,10 @@
   background-repeat: no-repeat;
   max-width: 970px;
   margin: 0 auto;
+}
+
+.sumple-page {
+  background: #abaaaa53;
 }
 
 .copyRight {
@@ -714,6 +729,22 @@
   margin: 0 auto;
 }
 
+.defult_show {
+  background: #e7ac959d;
+  font-weight: bold;
+}
+
+.like-none, .travelplan-none {
+  font-weight: bold;
+  text-align: center;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #333;
+}
+
 .set-travel-area ol li {
   list-style: none;
   border-top-left-radius: 10px;
@@ -789,6 +820,12 @@
   border-radius: 50%;
 }
 
+.acount_image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 .users-list {
   max-width: 700px;
   margin: 0 auto;
@@ -832,7 +869,7 @@
   padding-top: 0%;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .pop-image {

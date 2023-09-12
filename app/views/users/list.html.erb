@@ -59,6 +59,11 @@
         </div>
         <hr class="mt-0 mb-0">
       <% end %>
+      <% unless @users&.present? %>
+        <div class="users-none">
+          <p class="fs-5 text-center">該当する結果がありませんでした</p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -22,13 +22,4 @@ class FollowsController < ApplicationController
     user = User.find(params[:user_id])
     @users = user.followers
   end
-
-  private
-
-  def authenticate_user!
-    if !user_signed_in?
-      flash[:alert] = "アカウント登録もしくはログインしてください。"
-      redirect_to new_user_session_path
-    end
-  end
 end

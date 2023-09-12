@@ -14,8 +14,7 @@ class TravelplansController < ApplicationController
 
   def home
     @user = current_user
-    @travelplans = Travelplan.sorted_by_likes
-    @likes_counts = Like.group(:travelplan_id).count
+    @travelplans = Travelplan.top_liked_prefecture(9)
     @prefecture_names = PREFECTURE_NAMES
   end
 
@@ -57,7 +56,7 @@ class TravelplansController < ApplicationController
       current_user.update(job_status: "in_progress")
       TravelplanCreationJob.perform_later(@travelplan.id, current_user.id)
       flash[:notice] = "旅行プラン作成中ですこれには時間が掛かる場合があります..."
-      redirect_to user_path(current_user.id)
+      redirect_to user_path(current_user)
     else
       flash[:alert] = "旅行プランの作成に失敗しました。再試行してください。"
       render :new
@@ -67,18 +66,14 @@ class TravelplansController < ApplicationController
   def set_in_progress
     @travelplan = Travelplan.find(params[:id])
     @travelplan.job_status = "in_progress"
-    @travelplan.save
-    render json: { status: 'success' }
+    if @travelplan.save
+      render json: { status: 'success' }
+    else
+      render json: { status: 'error', message: @travelplan.errors.full_messages.join(", ") }, status: :unprocessable_entity
+    end
   end
 
   private
-
-  def authenticate_user!
-    if !user_signed_in?
-      flash[:alert] = "アカウント登録もしくはログインしてください。"
-      redirect_to new_user_session_path
-    end
-  end
 
   def content_params
     params.require(:travelplan).permit(:gpt_response, :travelplan_name, :prefecture_name,

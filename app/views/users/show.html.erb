@@ -38,22 +38,22 @@
           </div>
           <% if user_signed_in? && current_user.id == @user.id %>
             <div class="edit-area">
-              <button type="button" class="btn btn-secondary editpage" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+              <button type="button" class="btn btn-secondary editpage" data-bs-toggle="modal" data-bs-target="#editModalshow">
                 プロフィール編集
               </button>
             </div>
           <% end %>
-        </div>
-        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="editProfileModalLabel">プロフィール編集</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div style="max-height: 500px; overflow-y: auto;">
-                  <%= render 'shared/edit' %>
+          <div class="modal fade" id="editModalshow" tabindex="-1" aria-labelledby="editModalshow" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalshow">プロフィール編集</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div style="max-height: 500px; overflow-y: auto;">
+                    <%= render 'shared/edit' %>
+                  </div>
                 </div>
               </div>
             </div>
@@ -105,9 +105,18 @@
       <div class="content-area">
         <div class="content show">
           <%= render 'shared/set_travel' %>
+          <%= link_to "https://twitter.com/share?url=#{@share_url}&text=旅行プランをチェック！", target: "_blank" do %>
+            <i class="fab fa-twitter"></i> Twitterで共有
+          <% end %>
         </div>
         <div class="content">
-          <%= render 'shared/like_history' %>
+          <% if @user.liked_travelplans.any? %>
+            <%= render 'shared/like_history' %>
+          <% else %>
+            <div class="like-none">
+              <p>まだいいね履歴はありません</p>
+            </div>
+          <% end %>
         </div>
         <div class="content">
           <%= render 'shared/travelplan_history' %>
@@ -165,20 +174,20 @@ function updateNotificationArea() {
 document.addEventListener("turbolinks:load", function() {
   const previousTravelPlanId = localStorage.getItem("travelplanId");
   const currentTravelPlanId = $(".top").data("travelplan-id");
-  const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+  const editModalShow = new bootstrap.Modal(document.getElementById('editModalshow'));
   const tabs = $(".tab");
-  tabs.on("click", function() {
+  tabs.off("click").on("click", function() {
     $(".active").removeClass("active");
     $(this).addClass("active");
     const index = tabs.index(this);
     $(".content").removeClass("show").eq(index).addClass("show");
   });
   updateNotificationArea();
-  $('.editpage').on('click', function() {
-    editProfileModal.show();
+  $('.editpage').off("click").on('click', function() {
+    editModalShow.show();
   });
-  $('.btn-close').on('click', function() {
-    editProfileModal.hide();
+  $('.btn-close').off("click").on('click', function() {
+    editModalShow.hide();
   });
   const showFlashAfterReload = localStorage.getItem("showFlashAfterReload");
   if (showFlashAfterReload) {

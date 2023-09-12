@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <% if user_signed_in? %>
-        <h1><%= link_to 'Travel Plan App', travelplans_home_path(@user.id), class: 'navbar-brand' %></h1>
+        <h1><%= link_to 'Travel Plan App', home_travelplan_path(@user.id), class: 'navbar-brand' %></h1>
       <% else %>
         <h1><%= link_to 'Travel Plan App', '/', class: 'navbar-brand' %></h1>
       <% end %>
@@ -45,7 +45,8 @@
             <span><%= current_user.name %></span>
           </div>
           <ul class="dropdown-menu" aria-labelledby="OpenMenu">
-            <li><%= link_to "マイページ", user_path(@user.id), class: "dropdown-item text-dark text-decoration-none" %></li>
+            <li><%= link_to "マイページ", user_path(current_user.id), class: "dropdown-item text-dark text-decoration-none" %></li>
+            <li><%= link_to "アカウント設定", acount_users_path, class: "dropdown-item text-dark text-decoration-none" %></li>
             <li><%= link_to "旅行プラン作成", new_travelplan_path, class: "dropdown-item text-dark text-decoration-none" %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item text-dark text-decoration-none", 
               method: :delete, data: { confirm: "ログアウトしますか？" } %></li>

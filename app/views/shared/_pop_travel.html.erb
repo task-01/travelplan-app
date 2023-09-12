@@ -3,13 +3,13 @@
     <h2 class="pop-travel-title mt-4 text-center">人気の旅行先</h2>
     <br>
     <div class="row text-center">
-      <% @travelplans.take(9).each do |travelplan| %>
+      <% @travelplans.each do |travelplan| %>
         <div class="col-md-4 mb-4"> 
           <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(travelplan.prefecture_name)}.png" %>
           <div class="card pb-2">
             <div class="card-body">
               <h2 class="card-title text-white p-2"><%= travelplan.prefecture_name %></h2>
-              <h3 class="card-text text-white p-2">いいね数: <%= @likes_counts[travelplan.id] || 0 %></h3>
+              <h3 class="card-text text-white p-2">いいね数: <%= travelplan.total_likes_count %></h3>
             </div>
             <div class="travel-prefectures-image pop-image card-img-top" style="background-image: url('<%= image_url %>'); position: relative;">
             </div>

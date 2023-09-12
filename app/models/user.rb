@@ -21,6 +21,10 @@ class User < ApplicationRecord
     end
   end
 
+  def guest_member?
+    email == 'guest@example.com'
+  end
+
   def likes?(travelplan)
     likes.exists?(travelplan_id: travelplan.id)
   end

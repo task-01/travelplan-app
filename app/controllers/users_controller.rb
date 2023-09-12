@@ -3,10 +3,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @travelplan = @user.travelplans.order(created_at: :desc).first
     @travelplans = @user.travelplans.order(created_at: :desc)
+    @share_url = travelplan_url(@travelplan)
     respond_to do |format|
-        format.html
-        format.json { render json: { user: @user, job_status: @travelplan&.job_status, user_job_status: @user.job_status } }
+      format.html
+      format.json { render json: { user: @user, job_status: @travelplan&.job_status, user_job_status: @user.job_status } }
     end
+  end
+
+  def acount
+    @user = current_user
   end
 
   def list

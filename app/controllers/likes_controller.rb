@@ -18,15 +18,6 @@ class LikesController < ApplicationController
       format.js
     end
   end
-  
-  private
-
-  def authenticate_user!
-    if !user_signed_in?
-      flash[:alert] = "アカウント登録もしくはログインしてください。"
-      redirect_to new_user_session_path
-    end
-  end
 end
 
 

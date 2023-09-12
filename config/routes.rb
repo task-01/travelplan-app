@@ -6,10 +6,10 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
-  get 'travelplans/home/:id', to: 'travelplans#home', as: 'travelplans_home'
-
-  resources :travelplans  do
+  
+  resources :travelplans, only: [:index, :new, :create] do
     member do
+      get :home
       post :set_in_progress
       post :likes, to: 'likes#create', as: :create_like
       delete :likes, to: 'likes#destroy', as: :destroy_like
@@ -19,12 +19,13 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update] do
     collection do
       get :list
+      get :acount
     end
     member do
       patch :update_job_status
     end
   end
-  
+
   resources :follows, only: [:create, :destroy]
 
   devise_scope :user do

@@ -37,6 +37,14 @@ class Travelplan < ApplicationRecord
     liked_travelplans.include?(travelplan)
   end
 
+  def self.top_liked_prefecture(limit = nil)
+    select('travelplans.prefecture_name, COUNT(likes.id) as total_likes_count')
+    .joins(:likes)
+    .group('travelplans.prefecture_name')
+    .order('total_likes_count DESC, travelplans.prefecture_name ASC')
+    .limit(limit)
+  end  
+
   scope :sorted_by_likes, -> {
     left_joins(:likes)
       .select('travelplans.*, COUNT(likes.id) AS likes_count')
