@@ -9,6 +9,8 @@
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
 WickedPdf.config = {
+  exe_path: '/Users/asaatouma/.rbenv/versions/3.2.2/bin/wkhtmltopdf',
+  encoding: "UTF-8"
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.
   # exe_path: '/usr/local/bin/wkhtmltopdf',

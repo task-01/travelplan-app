@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :travelplans, only: [:index, :new, :create] do
     member do
       get :home
+      get :travelplans_pdf
       post :set_in_progress
       post :likes, to: 'likes#create', as: :create_like
       delete :likes, to: 'likes#destroy', as: :destroy_like
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
       get :acount
     end
     member do
+      get 'travelplan_pdf/:travelplan_id', to: 'users#travelplan_pdf', as: 'travelplan_pdf'
       patch :update_job_status
     end
   end

@@ -104,10 +104,10 @@
       </div>
       <div class="content-area">
         <div class="content show">
+          <div class="text-center mt-3">
+            <%= link_to "PDFでダウンロード", travelplan_pdf_user_path(@user, travelplan_id: @travelplan.id, format: :pdf), class: "btn btn-primary" %>
+          </div>
           <%= render 'shared/set_travel' %>
-          <%= link_to "https://twitter.com/share?url=#{@share_url}&text=旅行プランをチェック！", target: "_blank" do %>
-            <i class="fab fa-twitter"></i> Twitterで共有
-          <% end %>
         </div>
         <div class="content">
           <% if @user.liked_travelplans.any? %>

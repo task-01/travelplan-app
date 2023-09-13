@@ -43,6 +43,20 @@ class TravelplansController < ApplicationController
     @number_days = NUMBER_DAYS
   end
 
+  def travelplans_pdf
+    travelplan = Travelplan.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        pdf_html = render_to_string('shared/_travelplan_detail.html.erb', layout: 'pdf.html.erb', locals: { travelplan: travelplan })
+        pdf = WickedPdf.new.pdf_from_string(
+          pdf_html,
+          stylesheets: false,
+        )
+        send_data pdf, filename: 'travel_plan.pdf', type: 'application/pdf', disposition: 'attachment'
+      end
+    end
+  end 
+
   def new
     @user = current_user
     @prefecture_names = PREFECTURE_NAMES
