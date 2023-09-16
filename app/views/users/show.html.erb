@@ -30,19 +30,17 @@
                 <%= image_tag "user_image/user_image.png" %>
               </div>
             <% end %>
-            <div class="show-user"><%= @user.name %></div>
-            <div class="d-flex">
-              <span>フォロー数:<%= @user.active_follows.count || 0 %>,</span>
-              <span>フォロワー数:<%= @user.passive_follows.count || 0 %></span>
-            </div>
+            <% if user_signed_in? && current_user.id == @user.id %>
+              <div class="edit-area">
+                <button type="button" class="btn btn-secondary editpage" data-bs-toggle="modal" data-bs-target="#editModalshow">
+                  プロフィール編集
+                </button>
+              </div>
+            <% end %>
           </div>
-          <% if user_signed_in? && current_user.id == @user.id %>
-            <div class="edit-area">
-              <button type="button" class="btn btn-secondary editpage" data-bs-toggle="modal" data-bs-target="#editModalshow">
-                プロフィール編集
-              </button>
-            </div>
-          <% end %>
+          <h2><%= @user.name %></h2>
+          <span>フォロー数:<%= @user.active_follows.count || 0 %>,</span>
+          <span>フォロワー数:<%= @user.passive_follows.count || 0 %></span>
           <div class="modal fade" id="editModalshow" tabindex="-1" aria-labelledby="editModalshow" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -63,23 +61,23 @@
           <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
             <span class="border border-secondary"></span>
             <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
-              旅行プラン投稿数
+              <span>旅行プラン投稿数</span>
               <div class="count-value">
-                <%= @user.travelplans.count %>
+                <%= @user.travelplans.count || 0 %>
               </div>
             </li>
             <span class="border border-secondary"></span>
             <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
-              いいね数
+              <span>いいね数</span>
               <div class="count-value">
-                <%= @user.likes.count %>
+                <%= @user.likes.count || 0 %>
               </div>
             </li>
             <span class="border border-secondary"></span>
             <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
-              作成旅行プラン数
+              <span>作成旅行プラン数</span>
               <div class="count-value">
-                <%= @user.travelplans.count %>
+                <%= @user.travelplans.count || 0 %>
               </div>
             </li>
             <span class="border border-secondary"></span>
@@ -91,13 +89,13 @@
     <% if @travelplan&.present? %>
       <div class="item-contents">
         <div class="tab-area d-flex justify-content-around">
-          <div class="tab active border-2 border-start border-end border-secondary" data-value='1' >
+          <div class="tab active border-2 border-start border-end border-secondary set-tab" data-value='1' >
             <h3>セット中の旅行プラン</h3>
           </div>
-          <div class="tab border-2 border-start border-end border-secondary" data-value='2' >
+          <div class="tab border-2 border-start border-end border-secondary set-tab" data-value='2' >
             <h3>いいね履歴</h3>
           </div>
-          <div class="tab border-2 border-start border-end border-secondary" data-value='3' >
+          <div class="tab border-2 border-start border-end border-secondary set-tab" data-value='3' >
             <h3>旅行プラン作成履歴</h3>
           </div>
         </div>

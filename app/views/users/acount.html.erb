@@ -1,3 +1,12 @@
+<% if user_signed_in? && @user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="top">
   <div class="user_acount_area">
     <div class="acount_image_area">

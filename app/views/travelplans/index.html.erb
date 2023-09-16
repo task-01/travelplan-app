@@ -10,38 +10,59 @@
   </div>
   <div class="travelplan_list">
     <div class="sort_filter_area">
-      <div class="border-start border-end border-secondary border-3 sort-options d-flex justify-content-between">
-        <span class="text-white fw-bold">並び順</span>
-        <div>
-          <%= link_to '新しい順', travelplans_path(sort_order: 'newest'), 
-            class: "border-3 mx-1 #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
-          <span>|</span>
-          <%= link_to '古い順', travelplans_path(sort_order: 'oldest'), 
-            class: "border-3 mx-1 #{params[:sort_order] == 'oldest' ? 'text-dark' : 'text-white'}" %>
-          <span>|</span>
-          <%= link_to '宿泊日数が多い順', travelplans_path(sort_order: 'most_days'), 
-            class: "border-3 mx-1 #{params[:sort_order] == 'most_days' ? 'text-dark' : 'text-white'}" %>
-          <span>|</span>
-          <%= link_to '宿泊日数が少ない順', travelplans_path(sort_order: 'least_days'), 
-            class: "border-3 mx-1 #{params[:sort_order] == 'least_days' ? 'text-dark' : 'text-white'}" %>
-          <span>|</span>
-          <%= link_to 'いいね順', travelplans_path(sort_order: 'likes'), 
-            class: "border-3 mx-1 #{params[:sort_order] == 'likes' ? 'text-dark' : 'text-white'}" %>
-        </div>   
+      <div class="d-none d-sm-block">
+        <div class="border-start border-end border-secondary border-3 sort-options d-flex justify-content-between">
+          <span class="text-white fw-bold">並び順</span>
+          <div>
+            <%= link_to '新しい順', travelplans_path(sort_order: 'newest'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to '古い順', travelplans_path(sort_order: 'oldest'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'oldest' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to '宿泊日数が多い順', travelplans_path(sort_order: 'most_days'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'most_days' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to '宿泊日数が少ない順', travelplans_path(sort_order: 'least_days'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'least_days' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to 'いいね順', travelplans_path(sort_order: 'likes'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'likes' ? 'text-dark' : 'text-white'}" %>
+          </div>   
+        </div>
+      </div>
+      <div class="d-block d-sm-none">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            並び順
+          </button>
+          <div class="dropdown-menu" aria-labelledby="sortDropdown">
+            <%= link_to '新しい順', travelplans_path(sort_order: 'newest'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to '古い順', travelplans_path(sort_order: 'oldest'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'oldest' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to '宿泊日数が多い順', travelplans_path(sort_order: 'most_days'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'most_days' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to '宿泊日数が少ない順', travelplans_path(sort_order: 'least_days'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'least_days' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to 'いいね順', travelplans_path(sort_order: 'likes'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'likes' ? 'text-dark' : 'text-white'}" %>
+          </div>
+        </div>
       </div>
       <hr>
       <div class="border-start border-end border-secondary border-3 filter-options field-area">
         <%= search_form_for @q, url: travelplans_path, method: :get, local: true do |f| %>
-          <div class="field form-group d-flex justify-content-between align-items-center">
+          <div class="field form-group d-flex flex-sm-row flex-column justify-content-between align-items-center">
             <h5 class="text-white text-start mb-0 fw-bold">キーワード</h5>
             <%= f.search_field :gpt_response_or_prefecture_name_or_tourist_spot_or_number_day_or_travelplan_name_cont, placeholder: 'キーワードを入力', class: 'form-control' %>
           </div>
-          <div class="field form-group d-flex justify-content-between align-items-center">
+          <div class="field form-group d-flex flex-sm-row flex-column justify-content-between align-items-center">
             <h5 class="text-white text-start mb-0 fw-bold">宿泊日数</h5>
             <%= f.select :number_day_eq, options_for_select([["未選択", nil]] + @number_days, params[:q]&.[](:number_day_eq)), 
               id: 'number_days', class: "number_days text-end" %>
           </div>
-          <div class="field form-group d-flex justify-content-between align-items-center">
+          <div class="field form-group d-flex flex-sm-row flex-column justify-content-between align-items-center">
             <h5 class="text-white text-start mb-0 fw-bold">都道府県名</h5>
             <%= f.select :prefecture_name_eq, options_for_select([["未選択", nil]] + @prefecture_names, params[:q]&.[](:prefecture_name_eq)), 
               id: 'dropdown_prefectures', class: "prefecture_names text-end" %>
@@ -85,16 +106,32 @@
     <% end %>
   </div>
 </div>
+<%= link_to "#", class: "up-icon" do %>
+  <i class="bi bi-arrow-up-circle"></i>
+<% end %>
 <script>
-$(document).ready(function() {
-  $('.travels-prefecture, .close-button').on('click', function() {
-    let contentArea = $(this).hasClass('travels-prefecture') ? $(this).next(".set-travels-area") : $(this).parent(".set-travels-area");
-    contentArea.slideToggle(function() {
-      if (!contentArea.is(':visible')) {
-        $('html, body').scrollTop(contentArea.prev('.travels-prefecture').offset().top);
-      }
-    });
+$(function () {
+  $('.travels-prefecture').click(function () {
+    $(this).next('.set-travels-area').slideToggle();
     $(this).toggleClass('close');
+    scrollToTitleImageArea($(this));
   });
+});
+$(function() {
+  $('.close-button').on('click', function() {
+      $(this).closest('.set-travels-area').slideToggle();
+      scrollToTitleImageArea($(this));
+  });
+  function scrollToTitleImageArea(element) {
+    const target = element.closest('.title-image-area');
+    $('html, body').animate({
+      scrollTop: target.offset().top
+    }, 500, function() {
+      target.addClass('blinking');
+      setTimeout(() => {
+        target.removeClass('blinking');
+      }, 2000);
+    });
+  }
 });
 </script>

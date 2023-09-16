@@ -40,13 +40,12 @@
       </li>
     <% end %>
   </ol>
-  
   <% if !request.format.pdf? %>
     <div class="text-right mx-3 mt-3">
       <%= link_to "PDFでダウンロード", travelplans_pdf_travelplan_path(travelplan, format: :pdf), class: "btn btn-primary" %>
     </div>
     <div class="text-center mt-3">
-      <button class="btn btn-danger close-button">閉じる</button>
+      <button class="btn close-button">閉じる</button>
     </div>
   <% end %>
 </div>

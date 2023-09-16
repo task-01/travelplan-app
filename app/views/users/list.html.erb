@@ -12,11 +12,11 @@
     <div class="sort_filter_area mb-3 pb-2">
       <div class="border-start border-end border-secondary border-3 sort-lists">
         <div class="d-flex justify-content-between align-items-center w-100">
-          <%= form_with url: list_users_path, method: :get, local: true, class: "" do |f| %>
-            <%= text_field_tag :name, params[:name], placeholder: "ユーザー名検索", class: "me-3" %>
-            <%= f.submit "検索", class: "ms-3 btn btn-primary" %>
+          <%= form_with url: list_users_path, method: :get, local: true, class: "refine-form d-flex" do |f| %>
+            <%= text_field_tag :name, params[:name], placeholder: "ユーザー名検索", class: "form-control me-3 refine-search" %>
+            <%= f.submit "検索", class: "ms-3 btn btn-primary refine-search" %>
           <% end %>
-          <div>
+          <div class="defult-sort-class">
             <span>並び替え</span>
             <%= link_to '新しい順', list_users_path(sort_order: 'newest', name: params[:name]),
               class: "border-3 mx-1 #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
@@ -26,6 +26,21 @@
             <span>|</span>
             <%= link_to 'フォロワー数順', list_users_path(sort_order: 'followers', name: params[:name]),
               class: "border-3 mx-1 #{params[:sort_order] == 'followers' ? 'text-dark' : 'text-white'}" %>
+          </div>
+          <div class="sort-class">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                並び替え
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to '新しい順', list_users_path(sort_order: 'newest', name: params[:name]),
+                  class: "dropdown-item #{params[:sort_order] == 'newest' ? 'active' : ''}" %>
+                <%= link_to 'フォロー数順', list_users_path(sort_order: 'follow', name: params[:name]),
+                  class: "dropdown-item #{params[:sort_order] == 'follow' ? 'active' : ''}" %>
+                <%= link_to 'フォロワー数順', list_users_path(sort_order: 'followers', name: params[:name]),
+                  class: "dropdown-item #{params[:sort_order] == 'followers' ? 'active' : ''}" %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -67,3 +82,22 @@
     </div>
   </div>
 </div>
+<script>
+function checkWindowWidth() {
+  const windowWidth = $(window).width();
+  if (windowWidth <= 525) {
+    $(".defult-sort-class").hide()
+    $(".sort-class").show();
+  } else {
+    $(".defult-sort-class").show()
+    $(".sort-class").hide();
+  }
+}
+$(document).ready(function () {
+  checkWindowWidth();
+});
+
+$(window).resize(function () {
+  checkWindowWidth();
+});
+</script>

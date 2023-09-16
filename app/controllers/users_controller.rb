@@ -54,10 +54,11 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "ユーザーIDが「#{@user.id}」の情報を更新しました"
+      flash[:notice] = "#{@user.name}が情報を更新しました"
+      sign_in :user, @user, bypass: true
       redirect_to user_path(@user.id)
     else
-      render "edit"
+      render "acount"
     end
   end
 
@@ -70,6 +71,6 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:image, :name)
+    params.require(:user).permit(:image, :name, :email, :password, :password_confirmation)
   end
 end
