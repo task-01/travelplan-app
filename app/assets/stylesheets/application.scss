@@ -1018,6 +1018,10 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.register-area.login-area {
+  height: auto;
+}
+
 @media (max-width: 1199px) {
   .search_form {
     padding-top: 0%;
@@ -1033,6 +1037,11 @@
 }
 
 @media (max-width: 991px) {
+
+  #error_explanation h2 {
+    width: 100%;
+  }
+
   .dropdown.user_icon {
     display: none;
   }
@@ -1105,6 +1114,10 @@
 
   .top-image-area, .register-area, .field input, .actions input, .field-area select { 
     width: 100% !important;
+  }
+
+  .register-area.login-area {
+    height: auto;
   }
 
   .register-title-area {
