@@ -47,15 +47,20 @@ class TravelplansController < ApplicationController
     travelplan = Travelplan.find(params[:id])
     respond_to do |format|
       format.pdf do
-        pdf_html = render_to_string('shared/_travelplan_detail.html.erb', layout: 'pdf.html.erb', locals: { travelplan: travelplan })
+        pdf_html = render_to_string('shared/_travelplan_detail.html.erb',
+          layout: 'pdf.html.erb',
+          locals: { travelplan: travelplan })
         pdf = WickedPdf.new.pdf_from_string(
           pdf_html,
           stylesheets: false,
         )
-        send_data pdf, filename: 'travel_plan.pdf', type: 'application/pdf', disposition: 'attachment'
+        send_data pdf,
+        filename: 'travel_plan.pdf',
+        type: 'application/pdf',
+        disposition: 'attachment'
       end
     end
-  end 
+  end
 
   def new
     @user = current_user
@@ -83,7 +88,8 @@ class TravelplansController < ApplicationController
     if @travelplan.save
       render json: { status: 'success' }
     else
-      render json: { status: 'error', message: @travelplan.errors.full_messages.join(", ") }, status: :unprocessable_entity
+      render json: { status: 'error', message: @travelplan.errors.full_messages.join(", ") },
+              status: :unprocessable_entity
     end
   end
 

@@ -8,10 +8,10 @@ class Travelplan < ApplicationRecord
 
   def fetch_gpt_response
     client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
-    question = "#{self.content_chat}の日次の旅行プランをリスト形式で教えてください。"
+    question = "#{content_chat}の日次の旅行プランをリスト形式で教えてください。"
 
     start_time = Time.now
-    
+
     response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo-0301",
@@ -28,41 +28,42 @@ class Travelplan < ApplicationRecord
   def like(travelplan)
     likes.create(travelplan_id: travelplan.id)
   end
-  
+
   def unlike(travelplan)
     likes.find_by(travelplan_id: travelplan.id).destroy
   end
-  
+
   def liked?(travelplan)
     liked_travelplans.include?(travelplan)
   end
 
-  def self.top_liked_prefecture(limit = nil)
-    select('travelplans.prefecture_name, COUNT(likes.id) as total_likes_count')
-    .joins(:likes)
-    .group('travelplans.prefecture_name')
-    .order('total_likes_count DESC, travelplans.prefecture_name ASC')
-    .limit(limit)
-  end  
+  def self.top_liked_prefecture(limit: nil)
+    select('travelplans.prefecture_name, COUNT(likes.id) as total_likes_count').
+      joins(:likes).
+      group('travelplans.prefecture_name').
+      order('total_likes_count DESC, travelplans.prefecture_name ASC').
+      limit(limit)
+  end
 
   scope :sorted_by_likes, -> {
-    left_joins(:likes)
-      .select('travelplans.*, COUNT(likes.id) AS likes_count')
-      .group('travelplans.id')
-      .order('COUNT(likes.id) DESC')
+    left_joins(:likes).
+      select('travelplans.*, COUNT(likes.id) AS likes_count').
+      group('travelplans.id').
+      order('COUNT(likes.id) DESC')
   }
 
-  def self.ransackable_attributes(auth_object = nil)
-    %w[
-      content_chat created_at end_date gpt_response job_status 
-      number_day prefecture_name start_date tourist_spot 
+  def self.ransackable_attributes(auth_object: nil)
+    %w(
+      content_chat created_at end_date gpt_response job_status
+      number_day prefecture_name start_date tourist_spot
       travelplan_name updated_at
-    ]
+    )
   end
-  def self.ransackable_associations(auth_object = nil)
-    %w[
-      prefecture_image_attachment prefecture_image_blob 
+
+  def self.ransackable_associations(auth_object: nil)
+    %w(
+      prefecture_image_attachment prefecture_image_blob
       travelplan_users users
-    ]
+    )
   end
 end

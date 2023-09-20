@@ -29,7 +29,5 @@ class LikesController < ApplicationController
         format.js { render js: 'window.location.replace("/users/sign_in");', status: 401 }
       end
     end
-  end  
+  end
 end
-
-

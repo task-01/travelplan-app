@@ -1,11 +1,21 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    if @user.nil?
+      flash[:alert] = "ユーザーが見つかりませんでした。"
+      redirect_to root_path
+      return
+    end
     @travelplan = @user.travelplans.order(created_at: :desc).first
     @travelplans = @user.travelplans.order(created_at: :desc)
     respond_to do |format|
       format.html
-      format.json { render json: { user: @user, job_status: @travelplan&.job_status, user_job_status: @user.job_status } }
+      format.json do
+        render json: {
+          user: @user, job_status: @travelplan&.job_status,
+          user_job_status: @user.job_status,
+        }
+      end
     end
   end
 
@@ -14,15 +24,20 @@ class UsersController < ApplicationController
     @travelplan = @user.travelplans.order(created_at: :desc).first
     respond_to do |format|
       format.pdf do
-        pdf_html = render_to_string('shared/_set_travel.html.erb', layout: 'pdf.html.erb', locals: { travelplan: @travelplan })
+        pdf_html = render_to_string('shared/_set_travel.html.erb',
+          layout: 'pdf.html.erb',
+          locals: { travelplan: @travelplan })
         pdf = WickedPdf.new.pdf_from_string(
           pdf_html,
           stylesheets: false,
         )
-        send_data pdf, filename: 'travel_plan.pdf', type: 'application/pdf', disposition: 'attachment'
+        send_data pdf,
+        filename: 'travel_plan.pdf',
+        type: 'application/pdf',
+        disposition: 'attachment'
       end
     end
-  end  
+  end
 
   def acount
     @user = current_user
@@ -34,14 +49,14 @@ class UsersController < ApplicationController
     if params[:name].present?
       users = users.where("name LIKE ?", "%#{params[:name]}%")
     end
-    
+
     case params[:sort_order]
     when 'newest'
       users = users.order(created_at: :desc)
     when 'follow'
-      users = users.left_joins(:active_follows).group(:id).order('COUNT(follows.follower_id) DESC')    
+      users = users.left_joins(:active_follows).group(:id).order('COUNT(follows.follower_id) DESC')
     when 'followers'
-      users = users.left_joins(:passive_follows).group(:id).order('COUNT(follows.followed_id) DESC')    
+      users = users.left_joins(:passive_follows).group(:id).order('COUNT(follows.followed_id) DESC')
     end
     @users = users
     @user_count = User.count
@@ -67,9 +82,9 @@ class UsersController < ApplicationController
     @user.update(job_status: "completed")
     render json: { status: "success" }
   end
-  
+
   private
-  
+
   def user_params
     params.require(:user).permit(:image, :name, :email, :password, :password_confirmation)
   end

@@ -3,7 +3,7 @@
     <%= flash[:notice] %>
   </div>
 <% end %>
-<% if @user.job_status != "completed" && current_user.id == @user.id %>
+<% if user_signed_in? && @user.job_status != "completed" && current_user.id == @user.id %>
   <div id="loading-animation" class="loading-animation">
     <div class="loading-bar"></div>
   </div>

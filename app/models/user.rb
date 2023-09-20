@@ -11,7 +11,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
-  validates :password, presence: true, confirmation: true, length: { minimum: 6 }, if: :password_required?
+  validates :password, presence: true, confirmation: true,
+            length: { minimum: 6 }, if: :password_required?
   before_create :set_job_status_to_completed
 
   def self.guest
@@ -40,7 +41,7 @@ class User < ApplicationRecord
   def following?(other_user)
     following.include?(other_user)
   end
-  
+
   private
 
   def password_required?
