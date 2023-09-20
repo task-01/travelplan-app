@@ -7,9 +7,14 @@
 # To learn more, check out the README:
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
+exe_path_setting = if Rails.env.production?
+                      ENV['WKHTMLTOPDF_PATH'] || '/app/bin/wkhtmltopdf'
+                    else
+                      '/Users/asaatouma/.rbenv/versions/3.2.2/bin/wkhtmltopdf'
+                    end
 
 WickedPdf.config = {
-  exe_path: '/Users/asaatouma/.rbenv/versions/3.2.2/bin/wkhtmltopdf',
+  exe_path: exe_path_setting,
   encoding: "UTF-8"
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.

@@ -24,6 +24,25 @@
   }
 }
 
+.change-top {
+  height: calc(100vh - 182.796px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-area {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login-path p  {
+  font-size: 13px;
+
+}
+
 .title-image-area.blinking {
   border-style: solid;
   border-width: 3px;
@@ -91,9 +110,9 @@
   transition: transform 0.3s;
 }
 
-.travelplan_search_area, .user_acount_area {
+.travelplan_search_area, .show-image-area, .user_acount_area {
   width: 100%;
-  background-image:url("back_image/travel_image.png");
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/travel_image.png");
   background-size: 100% 100%;
   height: 250px;
   margin-bottom: 30px;
@@ -194,7 +213,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  width: 40%;
+  width: 100%;
 }
 
 .type_name:valid+ label, .type_email:valid+ label, .type_password:valid+ label, :valid+ .type_confirmation_password{
@@ -277,7 +296,7 @@
   background-color:rgba(223, 221, 249, 0.8);
   fill:#fff;
   background-size: auto;
-  background-image:url("back_image/backimage.png");
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/backimage.png");
 }
 
 .pop-travel-title {
@@ -477,7 +496,7 @@
 }
 
 .register-image {
-  background-image:url("back_image/register_image.png");
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/register_image.png");
   background-size: 100% 100%;
 }
 
@@ -688,13 +707,6 @@
 .prefecture-image-area {
   width: 100%;
   height: 500px;
-  background-size: 100% 100%;
-}
-
-.show-image-area {
-  background-image:url("back_image/travel_image.png");
-  width: 100%;
-  height: 400px;
   background-size: 100% 100%;
 }
 

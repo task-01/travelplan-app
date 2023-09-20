@@ -27,7 +27,7 @@
               </div>
             <% else %>
               <div class="defult-image">
-                <%= image_tag "user_image/user_image.png" %>
+                <%= image_tag "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/user_image/user_image.png" %>
               </div>
             <% end %>
             <% if user_signed_in? && current_user.id == @user.id %>
