@@ -14,7 +14,7 @@ class TravelplansController < ApplicationController
 
   def home
     @user = current_user
-    @travelplans = Travelplan.top_liked_prefecture(9)
+    @travelplans = Travelplan.top_liked_prefecture(limit: 9)
     @prefecture_names = PREFECTURE_NAMES
   end
 

@@ -52,7 +52,7 @@ class Travelplan < ApplicationRecord
       order('COUNT(likes.id) DESC')
   }
 
-  def self.ransackable_attributes(auth_object: nil)
+  def self.ransackable_attributes(options = {})
     %w(
       content_chat created_at end_date gpt_response job_status
       number_day prefecture_name start_date tourist_spot
@@ -60,7 +60,7 @@ class Travelplan < ApplicationRecord
     )
   end
 
-  def self.ransackable_associations(auth_object: nil)
+  def self.ransackable_associations(options = {})
     %w(
       prefecture_image_attachment prefecture_image_blob
       travelplan_users users
