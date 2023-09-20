@@ -110,7 +110,15 @@
   transition: transform 0.3s;
 }
 
-.travelplan_search_area, .show-image-area, .user_acount_area {
+.show-image-area {
+  width: 100%;
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/travel_image.png");
+  background-size: 100% 100%;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+}
+
+.travelplan_search_area, .user_acount_area {
   width: 100%;
   background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/travel_image.png");
   background-size: 100% 100%;

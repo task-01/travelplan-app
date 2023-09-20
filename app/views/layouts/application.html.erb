@@ -17,7 +17,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= render 'shared/header' %>
+    <%= render 'shared/header', user: @user %>
     <%= yield %>
     <% if user_signed_in? %>
       <%= link_to '旅行プランを作成する', new_travelplan_path, class: 'fixed_to_post_link' %>

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @travelplan = @user.travelplans.order(created_at: :desc).first
     respond_to do |format|
       format.pdf do
-        pdf_html = render_to_string('shared/_set_travel.html.erb', layout: 'pdf.html.erb')
+        pdf_html = render_to_string('shared/_set_travel.html.erb', layout: 'pdf.html.erb', locals: { travelplan: @travelplan })
         pdf = WickedPdf.new.pdf_from_string(
           pdf_html,
           stylesheets: false,

@@ -17,27 +17,27 @@
             <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
               <%= render "devise/shared/error_messages", resource: resource %>
               <div class="field form-group">
-                <%= f.label "ユーザー名" %><br>
+                <%= f.label "ユーザー名", for: "user_name" %><br>
                 <%= f.text_field :name, autofocus: true, autocomplete: "name", maxlength: "20", class: "type_name form-control", required: "required" %>
-                <%= f.label "※入力必須項目です" %>
+                <%= f.label "※入力必須項目です", for: "user_name" %>
               </div>
               <div class="field form-group">
-                <%= f.label "メールアドレス" %><br>
+                <%= f.label "メールアドレス", for: "user_email" %><br>
                 <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "type_email form-control", required: "required" %>
-                <%= f.label "※入力必須項目です" %>
+                <%= f.label "※入力必須項目です", for: "user_email" %>
               </div>
               <div class="field form-group">
                 <% if @minimum_password_length %>
                 <em></em>
                 <% end %>
-                <%= f.label "パスワード (6文字以上)"%><br>
+                <%= f.label "パスワード (6文字以上)", for: "input_pass" %><br>
                 <%= f.password_field :password, id: "input_pass", autocomplete: "new-password", minlength: "6", class: "type_password form-control", required: "required" %>
-                <%= f.label "※入力必須項目です", class: "type_confirmation_password" %>
+                <%= f.label "※入力必須項目です", class: "type_confirmation_password", for: "input_pass" %>
               </div>
               <div class="field form-group">
-                <%= f.label "パスワード (確認用)"%><br>
+                <%= f.label "パスワード (確認用)", for: "confirmation_pass" %><br>
                 <%= f.password_field :password_confirmation, id: "confirmation_pass", autocomplete: "new-password", minlength: "6", class: "type_confirmation_password form-control", required: "required" %>
-                <%= f.label "※入力必須項目です", class: "type_confirmation_password" %>
+                <%= f.label "※入力必須項目です", class: "type_confirmation_password", for: "confirmation_pass" %>
               </div>
               <input type = 'checkbox' id = 'users_passcheck' class = 'check_input mb-3'> 
               パスワードを表示する

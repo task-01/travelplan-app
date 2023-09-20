@@ -22,14 +22,14 @@
             <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
               <%= render "devise/shared/error_messages", resource: resource %>
               <div class="field form-group">
-                <%= f.label "メールアドレス" %><br>
+                <%= f.label "メールアドレス", for: "user_email" %><br>
                 <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "type_email form-control", required: "required" %>
-                <%= f.label "※入力必須項目です" %>
+                <%= f.label "※入力必須項目です", for: "user_email" %>
               </div>
               <div class="field form-group">
-                <%= f.label "パスワード" %><br>
+                <%= f.label "パスワード", for: "input_pass" %><br>
                 <%= f.password_field :password, id: "input_pass", autocomplete: "current-password", class: "type_password form-control", required: "required" %>
-                <label class="type_confirmation_password" for="user_※入力必須項目です">※入力必須項目です</label>
+                <%= f.label "※入力必須項目です", class: "type_confirmation_password", for: "input_pass" %>
               </div>
               <% if devise_mapping.rememberable? %>
                 <div class="field form-group login-group">
@@ -60,13 +60,16 @@
 </div>
 <script>
 document.addEventListener('turbolinks:load', function() {
-  document.getElementById('users_passcheck').addEventListener('change', function() {
-    let input_pass = document.getElementById("input_pass");
-    if (input_pass.type === "password") {
+  const element = document.getElementById('users_passcheck');
+  if (element) {
+    element.addEventListener('change', function() {
+      let input_pass = document.getElementById("input_pass");
+      if (input_pass.type === "password") {
         input_pass.type = "text";
-    } else {
+      } else {
         input_pass.type = "password";
-    }
-  })
-}, false)
+      }
+    });
+  }
+}, false);
 </script>

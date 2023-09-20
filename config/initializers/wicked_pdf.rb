@@ -10,7 +10,7 @@
 exe_path_setting = if Rails.env.production?
                       ENV['WKHTMLTOPDF_PATH'] || '/app/bin/wkhtmltopdf'
                     else
-                      '/Users/asaatouma/.rbenv/versions/3.2.2/bin/wkhtmltopdf'
+                      '/Users/asaatouma/.rbenv/shims/wkhtmltopdf'
                     end
 
 WickedPdf.config = {

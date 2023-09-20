@@ -110,18 +110,18 @@
   <i class="bi bi-arrow-up-circle"></i>
 <% end %>
 <script>
-$(function () {
-  $('.travels-prefecture').click(function () {
+document.addEventListener("DOMContentLoaded", function() {
+  $('.travels-prefecture').off('click').click(function () {
     $(this).next('.set-travels-area').slideToggle();
     $(this).toggleClass('close');
     scrollToTitleImageArea($(this));
   });
-});
-$(function() {
-  $('.close-button').on('click', function() {
-      $(this).closest('.set-travels-area').slideToggle();
-      scrollToTitleImageArea($(this));
+
+  $('.close-button').off('click').on('click', function() {
+    $(this).closest('.set-travels-area').slideToggle();
+    scrollToTitleImageArea($(this));
   });
+  
   function scrollToTitleImageArea(element) {
     const target = element.closest('.title-image-area');
     $('html, body').animate({

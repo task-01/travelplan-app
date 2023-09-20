@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-expand-custom">
     <div class="container">
       <% if user_signed_in? %>
-        <h1><%= link_to 'Travel Plan App', home_travelplan_path(@user.id), class: 'navbar-brand' %></h1>
+        <h1><%= link_to 'Travel Plan App', home_travelplan_path(user.id), class: 'navbar-brand' %></h1>
       <% else %>
         <h1><%= link_to 'Travel Plan App', '/', class: 'navbar-brand' %></h1>
       <% end %>
@@ -51,9 +51,9 @@
         <div class="dropdown user_icon"> 
           <div id="OpenMenu" class="dropdown-toggle d-flex align-items-center" 
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <% if @user.image.attached? %>
+            <% if user.image.attached? %>
               <div class="header-user-image">
-                <%= image_tag @user.image %>
+                <%= image_tag user.image %>
               </div>
             <% else %>
               <div class="header-defult-image mr-2">

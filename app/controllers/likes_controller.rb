@@ -18,6 +18,18 @@ class LikesController < ApplicationController
       format.js
     end
   end
+
+  private
+
+  def authenticate_user!
+    unless user_signed_in?
+      flash[:alert] = "ログインもしくはアカウント登録してください。"
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path }
+        format.js { render js: 'window.location.replace("/users/sign_in");', status: 401 }
+      end
+    end
+  end  
 end
 
 
