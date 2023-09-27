@@ -21,23 +21,23 @@
                 <hr>
               </div>
               <div class="field form-group mb-5">
-                <%= f.label :tourist_spot, "含ませる観光スポット(任意入力)" %>
+                <%= f.label :tourist_spot, "含ませる観光スポット(任意入力)", for: "input_touristspot" %>
                 <%= f.text_field :tourist_spot, id: 'input_touristspot', class: "form-control" %>
                 <hr>
               </div>
               <div class="field form-group mb-5">
-                <%= f.label :prefecture_name, "都道府県", class: "mb-1" %><br>
+                <%= f.label :prefecture_name, "都道府県", class: "mb-1", for: "dropdown_prefecturs" %><br>
                 <%= f.select :prefecture_name, @prefecture_names, {}, 
                   id: 'dropdown_prefecturs', class: "prefecture_names", required: true %>
                 <hr>
               </div>
               <div class="field form-group mb-5">
-                <%= f.label :number_day, "日数", class: "mb-1" %><br>
+                <%= f.label :number_day, "日数", class: "mb-1", for: "dropdown_number" %><br>
                 <%= f.select :number_day, @number_days, {}, id: 'dropdown_number', class: "number_days", required: true %>
                 <hr>
               </div>
               <div class="field">
-                <%= f.label :content_chat, "作成内容が表示されます" %><br>
+                <%= f.label :content_chat, "作成内容が表示されます", for: "inputField" %><br>
                 <%= f.text_field :content_chat, id: 'inputField', readonly: true %>
                 <hr>
               </div>
@@ -60,12 +60,13 @@ document.addEventListener('turbolinks:load', function() {
   const dropdown_number = document.getElementById('dropdown_number');
   const input_touristspot = document.getElementById('input_touristspot');
   const inputField = document.getElementById('inputField');
-
-  const updateInputField = () => {
-    inputField.value = `${dropdown_prefecturs.value} ${dropdown_number.value} ${input_touristspot.value}`;
-  };
-  dropdown_prefecturs.addEventListener('change', updateInputField);
-  dropdown_number.addEventListener('change', updateInputField);
-  input_touristspot.addEventListener('change', updateInputField);
+  if (dropdown_prefecturs && dropdown_number && input_touristspot && inputField) {
+    const updateInputField = () => {
+      inputField.value = `${dropdown_prefecturs.value} ${dropdown_number.value} ${input_touristspot.value}`;
+    };
+    dropdown_prefecturs.addEventListener('change', updateInputField);
+    dropdown_number.addEventListener('change', updateInputField);
+    input_touristspot.addEventListener('change', updateInputField);
+  }
 });
 </script>

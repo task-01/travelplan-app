@@ -24,6 +24,19 @@
   }
 }
 
+.follow_followers {
+  text-decoration: none;
+  color: black;
+}
+
+.follow_followers .follow-count:hover {
+  text-decoration: underline;
+}
+
+.follow_followers .follower-count:hover {
+  text-decoration: underline;
+}
+
 .change-top {
   height: calc(100vh - 182.796px);
   display: flex;
@@ -1010,6 +1023,16 @@
   .tab-area .tab h3 {
     opacity: 0.5;
   }
+}
+
+.main-content {
+  min-height: 500px;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #333;
 }
 
 .content-area {

@@ -41,6 +41,7 @@ class Travelplan < ApplicationRecord
     select('travelplans.prefecture_name, COUNT(likes.id) as total_likes_count').
       joins(:likes).
       group('travelplans.prefecture_name').
+      includes(:likes => :travelplan).
       order('total_likes_count DESC, travelplans.prefecture_name ASC').
       limit(limit)
   end
@@ -49,6 +50,7 @@ class Travelplan < ApplicationRecord
     left_joins(:likes).
       select('travelplans.*, COUNT(likes.id) AS likes_count').
       group('travelplans.id').
+      includes(:likes => :user).
       order('COUNT(likes.id) DESC')
   }
 

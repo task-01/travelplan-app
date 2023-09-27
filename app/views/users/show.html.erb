@@ -39,8 +39,10 @@
             <% end %>
           </div>
           <h2><%= @user.name %></h2>
-          <span>フォロー数:<%= @user.active_follows.count || 0 %>,</span>
-          <span>フォロワー数:<%= @user.passive_follows.count || 0 %></span>
+          <%= link_to follow_followers_user_path, class: "follow_followers" do %>
+            <span class="follow-count">フォロー数:<%= @user.active_follows.size || 0 %>,</span>
+            <span class="follower-count">フォロワー数:<%= @user.passive_follows.size || 0 %></span>
+          <% end %>
           <div class="modal fade" id="editModalshow" tabindex="-1" aria-labelledby="editModalshow" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -59,13 +61,6 @@
         </div>
         <div class="show-top-footer mt-5">
           <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
-            <span class="border border-secondary"></span>
-            <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
-              <span>旅行プラン投稿数</span>
-              <div class="count-value">
-                <%= @user.travelplans.count || 0 %>
-              </div>
-            </li>
             <span class="border border-secondary"></span>
             <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
               <span>いいね数</span>
@@ -125,80 +120,4 @@
     <% end %>
   </div>
 </div>
-<script>
-function updateNotificationArea() {
-  const pageId = $(".top").data("page-id");
-  const travelplanId = $(".top").data("travelplan-id");
-  if (typeof pageId !== 'undefined') { 
-      $.ajax({
-        url: "/users/" + pageId,
-        type: 'GET',
-        dataType: 'json',
-        headers: {
-          'Accept': 'application/json'
-      },
-      success: function(response) {
-        if (response.job_status === "completed") {
-          $('.loading-bar').css('animation-play-state', 'paused').css('width', '100%');
-          $.ajax({
-            url: `/users/${pageId}/update_job_status`,
-            type: 'PATCH',
-            dataType: 'json',
-            beforeSend: function(xhr) {
-              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-            },
-          });
-          $.ajax({
-            url: `/travelplans/${travelplanId}/set_in_progress`,
-            type: 'POST',
-            dataType: 'json',
-            beforeSend: function(xhr) {
-              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-            },
-          });
-          localStorage.setItem("showFlashAfterReload", "true");
-          location.reload();
-        } else {
-          if ($('.loading-bar').width() >= $('.loading-bar').parent().width() * 0.85) {
-            $('.loading-bar').css('animation-play-state', 'paused');
-          }
-          setTimeout(function() {
-            updateNotificationArea();
-          }, 3000);
-        }
-      },
-    });
-  }
-};
-
-document.addEventListener("turbolinks:load", function() {
-  const previousTravelPlanId = localStorage.getItem("travelplanId");
-  const currentTravelPlanId = $(".top").data("travelplan-id");
-  const modalElement = document.getElementById('editModalshow');
-  let editModalShow;
-  if (modalElement) {
-    editModalShow = new bootstrap.Modal(modalElement);
-  }
-  const tabs = $(".tab");
-  tabs.off("click").on("click", function() {
-    $(".active").removeClass("active");
-    $(this).addClass("active");
-    const index = tabs.index(this);
-    $(".content").removeClass("show").eq(index).addClass("show");
-  });
-  updateNotificationArea();
-  $('.editpage').off("click").on('click', function() {
-    editModalShow.show();
-  });
-  $('.btn-close').off("click").on('click', function() {
-    editModalShow.hide();
-  });
-  const showFlashAfterReload = localStorage.getItem("showFlashAfterReload");
-  if (showFlashAfterReload) {
-    const flashMessageContent = "旅行プランが作成されました";
-    const flashElement = `<div id="flash-message" class="px-3 flash-message bg-warning">${flashMessageContent}</div>`;
-    $("header").after(flashElement);
-    localStorage.removeItem("showFlashAfterReload");
-  }
-});
-</script>
+<%= javascript_pack_tag 'users_show' %>

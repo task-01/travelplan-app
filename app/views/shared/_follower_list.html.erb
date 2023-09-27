@@ -1,0 +1,32 @@
+<% passive_follows.each do |user| %>
+  <div class="users-list d-flex align-items-center pt-2 justify-content-between">
+    <div class="d-flex align-items-center">
+      <div class="users-img">
+        <% if user.image.attached? %>
+          <div class="header-user-image list-image">
+            <%= image_tag user.image %>
+          </div>
+        <% else %>
+          <div class="header-defult-image list-image">
+            <%= image_tag "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/user_image/user_image.png" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="users-list-name left ms-3">
+        <h5 class="mt-0 mb-0"><%= user.name %></h5>
+        <span>フォロー数:<%= user.active_follows.size || 0 %></span>
+        <span>フォロワー数:<%= user.passive_follows.size || 0 %></span>
+        <span>作成旅行プラン数:<%= user.travelplans.size|| 0 %></span>
+      </div>
+    </div>
+    <div class="users-list-name right">
+      <% if user_signed_in? && current_user.following?(user) %>
+        <%= link_to "フォロー外す", follow_path(id: user.id), method: :delete, class: "btn btn-outline-danger" %>
+      <% else %>
+        <%= link_to "フォローする", follows_path(user_id: user.id), method: :post, class: "btn btn-danger text-white" %>
+      <% end %>
+      <%= link_to "プロフィール", user_path(user.id), class: "btn btn-link" %>
+    </div>
+  </div>
+  <hr class="mt-0 mb-0">
+<% end %>

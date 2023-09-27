@@ -22,8 +22,7 @@ class TravelplansController < ApplicationController
     @user = current_user
     @travelplan_count = Travelplan.count
     @q = Travelplan.ransack(params[:q])
-    travelplans = @q.result.includes(:users).distinct
-
+    travelplans = @q.result.includes(:users, :likes, :likers).distinct
     case params[:sort_order]
     when 'newest'
       travelplans = travelplans.order(created_at: :desc)
@@ -36,8 +35,7 @@ class TravelplansController < ApplicationController
     when 'likes'
       travelplans = Travelplan.sorted_by_likes
     end
-
-    @likes_counts = Like.group(:travelplan_id).count
+    @likes_counts = Like.group(:travelplan_id).size
     @travelplans = travelplans
     @prefecture_names = PREFECTURE_NAMES
     @number_days = NUMBER_DAYS

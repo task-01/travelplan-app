@@ -15,7 +15,7 @@
           <span class="text-white fw-bold">並び順</span>
           <div>
             <%= link_to '新しい順', travelplans_path(sort_order: 'newest'), 
-              class: "border-3 mx-1 #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
+              class: "border-3 mx-1 new-list #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
             <span>|</span>
             <%= link_to '古い順', travelplans_path(sort_order: 'oldest'), 
               class: "border-3 mx-1 #{params[:sort_order] == 'oldest' ? 'text-dark' : 'text-white'}" %>
@@ -109,29 +109,4 @@
 <%= link_to "#", class: "up-icon" do %>
   <i class="bi bi-arrow-up-circle"></i>
 <% end %>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  $('.travels-prefecture').off('click').click(function () {
-    $(this).next('.set-travels-area').slideToggle();
-    $(this).toggleClass('close');
-    scrollToTitleImageArea($(this));
-  });
-
-  $('.close-button').off('click').on('click', function() {
-    $(this).closest('.set-travels-area').slideToggle();
-    scrollToTitleImageArea($(this));
-  });
-  
-  function scrollToTitleImageArea(element) {
-    const target = element.closest('.title-image-area');
-    $('html, body').animate({
-      scrollTop: target.offset().top
-    }, 500, function() {
-      target.addClass('blinking');
-      setTimeout(() => {
-        target.removeClass('blinking');
-      }, 2000);
-    });
-  }
-});
-</script>
+<%= javascript_pack_tag 'travels_index' %>

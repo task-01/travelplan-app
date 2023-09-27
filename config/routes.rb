@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     member do
       get 'travelplan_pdf/:travelplan_id', to: 'users#travelplan_pdf', as: 'travelplan_pdf'
       patch :update_job_status
+      get :follow_followers
     end
   end
 

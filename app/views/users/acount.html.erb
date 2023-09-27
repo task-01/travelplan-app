@@ -73,7 +73,11 @@
 </div>
 <script>
 document.addEventListener("turbolinks:load", function() {
-  const editModalAcount = new bootstrap.Modal(document.getElementById('editModalacount'));
+  const modalElement = document.getElementById('editModalacount');
+  let editModalAcount;
+  if (modalElement) {
+    editModalAcount = new bootstrap.Modal(modalElement);
+  }
   const tabs = $(".tab");
   tabs.off("click").on("click", function() {
     $(".active").removeClass("active");

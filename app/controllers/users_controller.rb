@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
     if @user.nil?
       flash[:alert] = "ユーザーが見つかりませんでした。"
       redirect_to root_path
@@ -39,13 +39,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def follow_followers
+    @user = User.find(params[:id])
+    @active_follows = @user.following
+    @passive_follows = @user.followers
+  end
+
   def acount
     @user = current_user
   end
 
   def list
     @user = current_user
-    users = User.all.includes(:travelplans)
+    users = User.includes(:travelplans, :active_follows, :followers, :following, :passive_follows,
+image_attachment: :blob).all
     if params[:name].present?
       users = users.where("name LIKE ?", "%#{params[:name]}%")
     end
@@ -59,7 +66,6 @@ class UsersController < ApplicationController
       users = users.left_joins(:passive_follows).group(:id).order('COUNT(follows.followed_id) DESC')
     end
     @users = users
-    @user_count = User.count
   end
 
   def edit
