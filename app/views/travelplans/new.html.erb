@@ -1,0 +1,72 @@
+<div class="top">
+  <div class="register-area">
+    <div class="register-image">
+      <div class="register-title-area">
+        <div class="register-title-container w-75 mx-auto">
+          <div class="relative-title-area mt-5 mb-3">
+            <div class="relative-area">
+              <div class="relative-path">
+                <%= link_to '/', class: 'navbar-brand' do %>
+                  <i class="icon-arrow-right"></i>Travel Plan App
+                <% end %>
+              </div>
+              <h1 class="mb-5">旅行プラン作成Page</h1>
+            </div>
+          </div>
+          <div class="field-area">
+            <%= form_with model: @travelplan, local: true do |f| %>
+              <div class="field form-group mb-5">
+                <%= f.label :travelplan_name, "旅行プラン名(任意入力)" %>
+                <%= f.text_field :travelplan_name, maxlength: "20", class: "form-control" %>
+                <hr>
+              </div>
+              <div class="field form-group mb-5">
+                <%= f.label :tourist_spot, "含ませる観光スポット(任意入力)", for: "input_touristspot" %>
+                <%= f.text_field :tourist_spot, id: 'input_touristspot', class: "form-control" %>
+                <hr>
+              </div>
+              <div class="field form-group mb-5">
+                <%= f.label :prefecture_name, "都道府県", class: "mb-1", for: "dropdown_prefecturs" %><br>
+                <%= f.select :prefecture_name, @prefecture_names, {}, 
+                  id: 'dropdown_prefecturs', class: "prefecture_names", required: true %>
+                <hr>
+              </div>
+              <div class="field form-group mb-5">
+                <%= f.label :number_day, "日数", class: "mb-1", for: "dropdown_number" %><br>
+                <%= f.select :number_day, @number_days, {}, id: 'dropdown_number', class: "number_days", required: true %>
+                <hr>
+              </div>
+              <div class="field">
+                <%= f.label :content_chat, "作成内容が表示されます", for: "inputField" %><br>
+                <%= f.text_field :content_chat, id: 'inputField', readonly: true %>
+                <hr>
+              </div>
+              <%= f.hidden_field :user_id, value: @user.id %>
+              <div class="actions">
+                <%= f.submit "旅行計画を自動作成する", class: "btn btn-blue btn--cubic mt-4 mb-4"%>
+              </div>
+              <p>※旅行プラン名や観光スポットを入力した際は必ず作成内容が表示欄に表示されているか確認してください</p>
+              <p class="pb-5">※入力後表示されない場合は画面上の余白部分をクリックして見てください</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener('turbolinks:load', function() {
+  const dropdown_prefecturs = document.getElementById('dropdown_prefecturs');
+  const dropdown_number = document.getElementById('dropdown_number');
+  const input_touristspot = document.getElementById('input_touristspot');
+  const inputField = document.getElementById('inputField');
+  if (dropdown_prefecturs && dropdown_number && input_touristspot && inputField) {
+    const updateInputField = () => {
+      inputField.value = `${dropdown_prefecturs.value} ${dropdown_number.value} ${input_touristspot.value}`;
+    };
+    dropdown_prefecturs.addEventListener('change', updateInputField);
+    dropdown_number.addEventListener('change', updateInputField);
+    input_touristspot.addEventListener('change', updateInputField);
+  }
+});
+</script>

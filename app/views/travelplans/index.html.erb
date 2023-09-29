@@ -1,0 +1,112 @@
+<div class="top">
+  <div class="travelplan_search_area">
+    <div class="search_area">
+      <div class="search_form">
+        <h1 class="fw-bold">旅行プラン一覧</h1>
+        <p class="fs-5">旅行プラン一覧では、他のユーザーが投稿した旅行プランを見ることができます。投稿を絞り込む場合は、検索機能をお使いください。</p>
+        <p class="fs-5">総旅行プラン件数: <%= @travelplan_count %>件</p>
+      </div>
+    </div>
+  </div>
+  <div class="travelplan_list">
+    <div class="sort_filter_area">
+      <div class="d-none d-sm-block">
+        <div class="border-start border-end border-secondary border-3 sort-options d-flex justify-content-between">
+          <span class="text-white fw-bold">並び順</span>
+          <div>
+            <%= link_to '新しい順', travelplans_path(sort_order: 'newest'), 
+              class: "border-3 mx-1 new-list #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to '古い順', travelplans_path(sort_order: 'oldest'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'oldest' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to '宿泊日数が多い順', travelplans_path(sort_order: 'most_days'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'most_days' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to '宿泊日数が少ない順', travelplans_path(sort_order: 'least_days'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'least_days' ? 'text-dark' : 'text-white'}" %>
+            <span>|</span>
+            <%= link_to 'いいね順', travelplans_path(sort_order: 'likes'), 
+              class: "border-3 mx-1 #{params[:sort_order] == 'likes' ? 'text-dark' : 'text-white'}" %>
+          </div>   
+        </div>
+      </div>
+      <div class="d-block d-sm-none">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            並び順
+          </button>
+          <div class="dropdown-menu" aria-labelledby="sortDropdown">
+            <%= link_to '新しい順', travelplans_path(sort_order: 'newest'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'newest' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to '古い順', travelplans_path(sort_order: 'oldest'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'oldest' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to '宿泊日数が多い順', travelplans_path(sort_order: 'most_days'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'most_days' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to '宿泊日数が少ない順', travelplans_path(sort_order: 'least_days'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'least_days' ? 'text-dark' : 'text-white'}" %>
+            <%= link_to 'いいね順', travelplans_path(sort_order: 'likes'), 
+              class: "dropdown-item border-3 mx-1 text-decoration-underline #{params[:sort_order] == 'likes' ? 'text-dark' : 'text-white'}" %>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="border-start border-end border-secondary border-3 filter-options field-area">
+        <%= search_form_for @q, url: travelplans_path, method: :get, local: true do |f| %>
+          <div class="field form-group d-flex flex-sm-row flex-column justify-content-between align-items-center">
+            <h5 class="text-white text-start mb-0 fw-bold">キーワード</h5>
+            <%= f.search_field :gpt_response_or_prefecture_name_or_tourist_spot_or_number_day_or_travelplan_name_cont, placeholder: 'キーワードを入力', class: 'form-control' %>
+          </div>
+          <div class="field form-group d-flex flex-sm-row flex-column justify-content-between align-items-center">
+            <h5 class="text-white text-start mb-0 fw-bold">宿泊日数</h5>
+            <%= f.select :number_day_eq, options_for_select([["未選択", nil]] + @number_days, params[:q]&.[](:number_day_eq)), 
+              id: 'number_days', class: "number_days text-end" %>
+          </div>
+          <div class="field form-group d-flex flex-sm-row flex-column justify-content-between align-items-center">
+            <h5 class="text-white text-start mb-0 fw-bold">都道府県名</h5>
+            <%= f.select :prefecture_name_eq, options_for_select([["未選択", nil]] + @prefecture_names, params[:q]&.[](:prefecture_name_eq)), 
+              id: 'dropdown_prefectures', class: "prefecture_names text-end" %>
+          </div>
+          <div class="text-end">
+            <%= f.submit '絞り込み', class: 'btn filter hover-transform' %>
+          </div>
+        <% end %>
+      </div>
+      <hr>
+    </div>
+    <% @travelplans.each do |travelplan| %>
+      <% if current_user && current_user.likes?(travelplan)  %>
+        <%= link_to destroy_like_travelplan_path(travelplan), method: :delete, remote: true, class: 'btn btn-outline-danger like-button like', id: "like-button-#{travelplan.id}" do %>
+          <i class="fas fa-heart"></i><%= @likes_counts[travelplan.id] || 0 %>
+        <% end %>
+      <% else %>
+        <%= link_to create_like_travelplan_path(travelplan), method: :post, remote: true, class: 'btn btn-outline-secondary like-button', id: "like-button-#{travelplan.id}" do %>
+          <i class="far fa-heart"></i><%= @likes_counts[travelplan.id] || 0 %>
+        <% end %>
+      <% end %>
+      <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(travelplan.prefecture_name)}.png" %>
+      <div class="title-image-area mb-3" style="background-image: url('<%= image_url %>');">
+        <div class="d-flex flex-row bd-highlight travels-prefecture">
+          <h1 class="travelplan_prefecture_name"><%= travelplan.prefecture_name %></h1>
+          <p class="text-white mt-4 travelplans-day">宿泊日数：<%= travelplan.number_day %>泊</p>
+          <p class="text-white mt-4 travelplans-day">
+            <% travelplan.users.each do |user| %>
+              <%= user.name %>さんの旅行プラン
+            <% end %>
+          </p>
+          <p class="text-white detail">詳細</p>
+        </div>
+        <%= render 'shared/travelplan_detail', travelplan: travelplan %>
+      </div>
+    <% end %>
+    <% unless @travelplan&.present? %>
+      <div class="travelplan-none">
+        <p>該当する結果がありませんでした</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= link_to "#", class: "up-icon" do %>
+  <i class="bi bi-arrow-up-circle"></i>
+<% end %>
+<%= javascript_pack_tag 'travels_index' %>

@@ -2,15 +2,51 @@
 <html>
   <head>
     <title>TravelplanApp01</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="<%= form_authenticity_token %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/62e3069337.js" crossorigin="anonymous"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
   </head>
-
   <body>
+    <%= render 'shared/header', user: @user %>
     <%= yield %>
+    <% if user_signed_in? %>
+      <%= link_to '旅行プランを作成する', new_travelplan_path, class: 'fixed_to_post_link' %>
+    <% else %>
+      <%= link_to '旅行プランを作成する', new_user_session_path, class: 'fixed_to_post_link' %>
+    <% end %>
+    <%= render 'shared/footer' %>
   </body>
 </html>
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'yop3lcr',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(
+      function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},
+      config.scriptTimeout
+    ),
+    tk=d.createElement("script"),
+    f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";
+    tk.src='https://use.typekit.net/'+config.kitId+'.js';
+    tk.async=true;tk.onload=tk.onreadystatechange=function(){
+      a=this.readyState;
+      if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);
+      try{Typekit.load(config)}catch(e){}
+    };
+    s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>

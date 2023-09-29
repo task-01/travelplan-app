@@ -1,0 +1,123 @@
+<% if flash[:notice] %>
+  <div id="flash-message" class="px-3 flash-message bg-warning">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<% if user_signed_in? && @user.job_status != "completed" && current_user.id == @user.id %>
+  <div id="loading-animation" class="loading-animation">
+    <div class="loading-bar"></div>
+  </div>
+<% end %>
+<div class="top" data-turbolinks-permanent data-page-id="<%= @user.id %>" data-travelplan-id="<%= @travelplan&.id %>">
+  <div class="show-image-class">
+    <% if @travelplan && @travelplan.prefecture_name&.match?(/都|道|府|県/) %>
+      <% image_url = "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/prefectures/#{prefecture_to_english(@travelplan.prefecture_name)}.png" %>
+      <div class="prefecture-image-area" 
+        style="background-image: url('<%= image_url %>');">
+    <% else %>
+      <div class="show-image-area">
+    <% end %>
+    <div class="show-mypage-area">
+      <div class="show-top">
+        <div class="show-mypage">
+          <div class="user-section">
+            <% if @user.image.attached? %>
+              <div class="user_image">
+                <%= image_tag @user.image %>
+              </div>
+            <% else %>
+              <div class="defult-image">
+                <%= image_tag "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/user_image/user_image.png" %>
+              </div>
+            <% end %>
+            <% if user_signed_in? && current_user.id == @user.id %>
+              <div class="edit-area">
+                <button type="button" class="btn btn-secondary editpage" data-bs-toggle="modal" data-bs-target="#editModalshow">
+                  プロフィール編集
+                </button>
+              </div>
+            <% end %>
+          </div>
+          <h2><%= @user.name %></h2>
+          <%= link_to follow_followers_user_path, class: "follow_followers" do %>
+            <span class="follow-count">フォロー数:<%= @user.active_follows.size || 0 %>,</span>
+            <span class="follower-count">フォロワー数:<%= @user.passive_follows.size || 0 %></span>
+          <% end %>
+          <div class="modal fade" id="editModalshow" tabindex="-1" aria-labelledby="editModalshow" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalshow">プロフィール編集</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div style="max-height: 500px; overflow-y: auto;">
+                    <%= render 'shared/edit', user: @user, minimum_password_length: @minimum_password_length %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show-top-footer mt-5">
+          <ul class="list-group list-group-horizontal justify-content-between mypage-travel-area">
+            <span class="border border-secondary"></span>
+            <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
+              <span>いいね数</span>
+              <div class="count-value">
+                <%= @user.likes.count || 0 %>
+              </div>
+            </li>
+            <span class="border border-secondary"></span>
+            <li class="list-group-item d-flex flex-column justify-content-center align-items-center">
+              <span>作成旅行プラン数</span>
+              <div class="count-value">
+                <%= @user.travelplans.count || 0 %>
+              </div>
+            </li>
+            <span class="border border-secondary"></span>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+    <% if @travelplan&.present? %>
+      <div class="item-contents">
+        <div class="tab-area d-flex justify-content-around">
+          <div class="tab active border-2 border-start border-end border-secondary set-tab" data-value='1' >
+            <h3>セット中の旅行プラン</h3>
+          </div>
+          <div class="tab border-2 border-start border-end border-secondary set-tab" data-value='2' >
+            <h3>いいね履歴</h3>
+          </div>
+          <div class="tab border-2 border-start border-end border-secondary set-tab" data-value='3' >
+            <h3>旅行プラン作成履歴</h3>
+          </div>
+        </div>
+      </div>
+      <div class="content-area">
+        <div class="content show">
+          <div class="text-center mt-3">
+            <%= link_to "PDFでダウンロード", travelplan_pdf_user_path(@user, travelplan_id: @travelplan.id, format: :pdf), class: "btn btn-primary" %>
+          </div>
+          <%= render 'shared/set_travel', travelplan: @travelplan %>
+        </div>
+        <div class="content">
+          <% if @user.liked_travelplans.any? %>
+            <%= render 'shared/like_history', user: @user %>
+          <% else %>
+            <div class="like-none">
+              <p>まだいいね履歴はありません</p>
+            </div>
+          <% end %>
+        </div>
+        <div class="content">
+          <%= render 'shared/travelplan_history', travelplans: @travelplans %>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'shared/default_show' %>
+    <% end %>
+  </div>
+</div>
+<%= javascript_pack_tag 'users_show' %>

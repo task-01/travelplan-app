@@ -1,0 +1,27 @@
+<div class="top">
+  <div class="show-image-class">
+    <div class="item-contents mt-0 mb-0">
+      <div class="tab-area d-flex justify-content-around">
+        <div class="tab active border-2 border-start border-end border-secondary set-tab" data-value='1' >
+          <h3>フォロー</h3>
+        </div>
+        <div class="tab border-2 border-start border-end border-secondary set-tab" data-value='2' >
+          <h3>フォロワー</h3>
+        </div>
+      </div>
+    </div>
+    <div class="content-area main-content mt-3">
+      <div class="content show">
+        <%= render 'shared/follow_list', active_follows: @active_follows %>
+      </div>
+      <div class="content">
+        <%= render 'shared/follower_list', passive_follows: @passive_follows %>
+      </div>
+      <% unless @active_follows&.present? || @passive_follows&.present? %>
+        <p>まだフォローやフォロワーはいません</p>
+        <p>たくさんのユーザーをフォローしてみよう</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= javascript_pack_tag 'users_show' %>

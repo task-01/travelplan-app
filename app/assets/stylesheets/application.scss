@@ -1,0 +1,1244 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+@import "bootstrap";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap');
+
+@keyframes blink {
+  100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: blue;
+  }
+}
+
+.follow_followers {
+  text-decoration: none;
+  color: black;
+}
+
+.follow_followers .follow-count:hover {
+  text-decoration: underline;
+}
+
+.follow_followers .follower-count:hover {
+  text-decoration: underline;
+}
+
+.change-top {
+  height: calc(100vh - 182.796px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-area {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login-path p  {
+  font-size: 13px;
+
+}
+
+.title-image-area.blinking {
+  border-style: solid;
+  border-width: 3px;
+  animation: blink 0.5s infinite;
+}
+
+.up-icon i {
+  font-size: 30px;
+  position: fixed;
+  left: 40px;
+  bottom: 100px;
+  z-index: 100;
+}
+
+.like-button {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.sort_filter_area {
+  background-color: #4c6368b6;
+  padding-top: 10px;
+}
+
+.sort-options, .filter-options {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 50px;
+}
+
+.sort-lists {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 50px;
+}
+
+.sort-options > span {
+  font-size: 20px;
+}
+
+.sort-options div, .sort-lists div {
+  padding-top: 7px;
+  font-size: 15px;
+}
+
+.filter-options > form > .form-group input, 
+.filter-options > form > .form-group select {
+  width: 400px;
+}
+
+.filter {
+  width: 100%;
+  color: #ffffff;
+  background: 
+    repeating-linear-gradient(135deg, #6f9fdec5, #6f9fdec5 20px, #6f9fde 20px, #6f9fde 40px);
+  font-size: 0.9rem;
+  transition: all .3s;
+  padding: 5px 10px;
+}
+
+.hover-transform:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+
+.show-image-area {
+  width: 100%;
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/travel_image.png");
+  background-size: 100% 100%;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+}
+
+.travelplan_search_area, .user_acount_area {
+  width: 100%;
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/travel_image.png");
+  background-size: 100% 100%;
+  height: 250px;
+  margin-bottom: 30px;
+}
+
+.search_area, .acount_image_area {
+  height: 250px;
+  background: rgba(255, 255, 255, 0.663);
+  margin: 0 auto;
+}
+
+.search_form, .acount_title {
+  padding-top: 50px;
+  font-family: "kaisei-harunoumi", sans-serif;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.acount_container {
+  max-width: 750px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #000000;
+  background-color: #a98f8f78;
+}
+
+.travelplan_list {
+  max-width: 970px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #333;
+}
+
+.travelplan_list > hr {
+  margin-top: 5px;
+}
+
+.fixed_to_post_link {
+  position: fixed;
+  right: 40px;
+  bottom: 100px;
+  z-index: 100;
+  opacity: 0.75;
+  background: repeating-linear-gradient(45deg, #34d5f99a , #34d5f99a  20px, #34d5f9 20px, #34d5f9 40px);
+  border: 1px solid gray;
+  border-radius: 50px;
+  padding: 10px 20px;
+  color: #000000;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: .3s;
+  text-decoration: none; 
+}
+
+.fixed_to_post_link:before {
+  content: "▷";
+}
+
+.sumple_image {
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  max-width: 970px;
+  margin: 0 auto;
+}
+
+.sumple-page {
+  background: #abaaaa53;
+}
+
+.copyRight {
+  height: 100px;
+}
+
+.field-area p {
+  margin-bottom: 0%;
+  font-size: 13px;
+  color: firebrick;
+}
+
+.user_icon {
+  cursor: pointer;
+}
+
+#error_explanation ul > li {
+  color: red;
+}
+
+#error_explanation > h2 {
+  text-align: center;
+  background-color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  width: 100%;
+}
+
+.type_name:valid+ label, .type_email:valid+ label, .type_password:valid+ label, :valid+ .type_confirmation_password{
+  display: none;
+}
+
+.type_name+ label, .type_email:invalid+ label, .type_confirmation_password{
+  color: red;
+}
+
+.navbar-brand {
+  font-family: 'Bangers', cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  margin-right: 15px;
+}
+
+.navbar-nav > .header-section, .navbar-nav > .pop-travel-tag {
+  margin: 8px 15px;
+}
+
+.sub-title-h1 {
+  font-family: "kaisei-harunoumi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.text-area {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  list-style:none;
+
+  .navbar-brand, .dropdown, li{
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: transparent;
+      transition: all 0.5s ease 0s;
+    }
+        
+    &:hover {
+      &:after {
+        background: rgb(133, 158, 255);
+      }
+    }
+    
+    &.current {
+      &:after {
+        background: rgb(133, 158, 255);
+      }
+    }
+  }
+  .dropdown.user_icon {
+    padding: 10px;
+  }
+
+  .dropdown-menu.show {
+    margin-top: 15px;
+    right: 0%;
+    left: 0%;
+
+  }
+}
+
+.top {
+  width: 100%;
+  background-color:rgba(223, 221, 249, 0.8);
+  fill:#fff;
+  background-size: auto;
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/backimage.png");
+}
+
+.pop-travel-title {
+  width: 100%;
+  border-top: double 5px #FFC778;
+  border-bottom: double 5px #FFC778;
+}
+
+.travel-prefectures {
+  display: table;
+  background-color: #FFC778;
+  margin: 0 auto;
+}
+
+.travel-prefectures-table {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table-cell {
+  text-align: center;
+  width: 287px;
+}
+
+.travel-prefectures-image {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  height: 300px;
+  background-color: #4cccff;
+}
+
+.travel-prefectures-explanation {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.top-image {
+  height: 300px;
+  display: block;
+  width: 100%;
+}
+
+.login-link {
+  margin-top: 15px;
+}
+
+.signup-value, .post-value {
+  appearance: none;
+  background-color: #fcb161;
+  border: 2px solid #a57100;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #202020;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 70%;
+  will-change: transform;
+}
+
+.signup-value:disabled, .post-value:disabled {
+  pointer-events: none;
+}
+
+.signup-value:hover, .post-value:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.signup-value:active, .post-value:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.login-value:first-child {
+  margin-right: 20px;
+}
+
+.login-value:last-child {
+  margin-left: 20px;
+}
+
+.login-value {
+  background: #ffffff;
+  backface-visibility: hidden;
+  border-radius: .375rem;
+  border-style: solid;
+  border-width: .125rem;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,Helvetica,sans-serif;
+  font-size: 1.125rem;
+  font-weight: 100;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  padding: .875rem 1.125rem;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.login-value:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.login-value:not(:disabled):hover:active {
+  transform: scale(1.05) translateY(.125rem);
+}
+
+.login-value:focus {
+  outline: 0 solid transparent;
+}
+
+.login-value:focus:before {
+  content: "";
+  left: calc(-1*.375rem);
+  pointer-events: none;
+  position: absolute;
+  top: calc(-1*.375rem);
+  transition: border-radius;
+  user-select: none;
+}
+
+.login-value:focus:not(:focus-visible) {
+  outline: 0 solid transparent;
+}
+
+.login-value:focus:not(:focus-visible):before {
+  border-width: 0;
+}
+
+.login-value:not(:disabled):active {
+  transform: translateY(.125rem);
+}
+
+.app-title {
+  margin-left: 30px;
+}
+
+.relative-area {
+  border-left: double 5px #050606;
+  width: fit-content;
+  font-family: "kaisei-harunoumi", sans-serif;
+}
+
+.relative-area > .relative-path, .relative-area > h1 {
+  margin-left: 10px;
+}
+
+.login-area {
+  width: 60% !important;
+}
+
+.reset-top {
+  height: 600px;
+}
+
+.users-container {
+  background-color: #ffffff73;
+}
+
+.register-area {
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+  box-shadow: 0 0 20px 0 rgba(0, 128, 255, 0.5);
+  border-color: #2c68ff7d;
+}
+
+.register-area .register-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.register-image {
+  background-image:url("https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/register_image.png");
+  background-size: 100% 100%;
+}
+
+.btn-blue{
+  color: #000;
+  background-color: #00b3ff;
+  border-bottom: 5px solid #0484bb;
+}
+
+.btn-blue:hover {
+  margin-top: 3px;
+  color: #000;
+  background: #00b3ff;;
+  border-bottom: 2px solid #0484bb;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field input {
+  width: 300px;
+  margin-top: 5px;
+}
+
+
+.show-image-class {
+  width: 100%;
+  height: auto;
+}
+
+.travelplan_prefecture_name {
+  font-weight: bold;
+  font-family: Georgia, serif;
+  font-size: 80px;
+  color: white;
+}
+
+.sumple_prefecture_name {
+  font-weight: bold;
+  font-family: Georgia, serif;
+  font-size: 50px;
+  color: white;
+  margin-right: 30px;
+  margin-left: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 0.3px black;
+}
+
+.travals-history {
+  color: white;
+}
+
+.set-travels-area, .sumle-detail {
+  font-weight: bold;
+  font-family: Georgia, serif;
+  display: none;
+  max-width: 970px;
+  margin: 0 auto;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.omission hr {
+  color: #000;
+  border-top: 3px solid;
+  border-color: #000;
+  flex-grow: 1;
+}
+
+.omission span {
+  color: #eee9e9;
+}
+
+.sumle-detail ol {
+  margin-left: 20px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  color: #ffffff;
+  font-size: large;
+}
+
+.sumle-detail ol > hr {
+  margin: 1rem 0;
+  color: inherit;
+  border: 0;
+  border-top: var(--bs-border-width) solid;
+  opacity: 0.25;
+}
+
+.sumple_area h2 {
+  font-weight: bold;
+  -webkit-text-stroke: 0.5px black;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.travelplans-day {
+  padding-top: 10px;
+  font-size: 25px;
+  margin-left: 15px;
+}
+
+.sumple_day {
+  font-weight: bold;
+  font-size: 20px;
+  -webkit-text-stroke: 0.3px black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.title-image-area {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  max-width: 970px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);  /* 半透明の黒色 */
+}
+
+.title-image-area .list-group > h3 {
+  margin-left: 20px;
+  margin-top: 15px;
+  font-family: Georgia, serif;
+  font-weight: bold;
+}
+
+.title-image-area > h3 {
+  margin-left: 20px;
+  padding-top: 20px;
+  font-family: Georgia, serif;
+  font-weight: bold;
+}
+
+.close-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Georgia, serif;
+  margin-top: 20px;
+}
+
+.loading-bar {
+  width: 0;
+  height: 4px;
+  background-color: blue;
+  animation: loadingAnimation 20s linear forwards;
+}
+
+@keyframes loadingAnimation {
+  0% { width: 0; }
+  80% { width: 80%; }
+  100% { width: 100%; }
+}
+
+
+.detail {
+  padding-top: 40px;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 0 0 auto;
+  padding-right: 35px;
+  text-align: right;
+  -webkit-text-stroke: 0.3px black;
+}
+
+.sumple_detail {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 0 0 auto;
+  margin-right: 20px;
+  text-align: right;
+  -webkit-text-stroke: 0.3px black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.travels-prefecture .detail:after, .sumple_image .sumple_detail:after {
+  content: "+";
+  font-size: 23px;
+  margin-left: 2px;
+}
+
+.travels-prefecture.close .detail:after, .sumple_image.close .sumple_detail:after {
+  content: "✕";
+  font-size: 20px;
+}
+
+.close-button:hover {
+  background-color: #555;
+}
+
+.travels-prefecture {
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 15px;
+  -webkit-text-stroke: 0.3px black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.prefecture-image-area {
+  width: 100%;
+  height: 500px;
+  background-size: 100% 100%;
+}
+
+.show-mypage {
+  width: 100%;
+  padding-top: 30px;
+}
+
+.user-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.show-top-footer ul {
+  margin-top: 10px;
+  height: 100px;
+  background: rgba(189, 193, 198, 0.5);
+}
+
+.show-top-footer ul li {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+}
+
+.show-top-footer ul li div {
+  font-size: 45px;
+}
+
+.mytravel-area {
+  padding-top: 80px;
+}
+
+.defult_show {
+  margin-top: 35px;
+  min-height: 500px;
+  max-width: 950px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px 0px;
+  padding: 20px 30px;
+  border-radius: 7px;
+  border-color: rgb(51, 51, 51);
+}
+
+.set-travel-area, .default_show_area {
+  max-width: 970px;
+  margin: 0 auto;
+}
+
+.defult_show {
+  background: #e7ac959d;
+  font-weight: bold;
+}
+
+.like-none, .travelplan-none {
+  font-weight: bold;
+  text-align: center;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #333;
+}
+
+.set-travel-area ol li {
+  list-style: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.travel_create_area .btn-outline-info {
+  font-family: Georgia, serif;
+  font-weight: bold;
+}
+
+.travel_tentative {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: Georgia, serif;
+}
+
+.list-group > h1 {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-family: Georgia, serif;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.defult_subtitle h1 {
+  font-family: Georgia, serif;
+  font-weight: bold;
+}
+
+.travel-text-area {
+  width: 100%;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+.travel-text-area h5 {
+  font-family: Georgia, serif;
+}
+
+.travel-text-area hr {
+  margin-top: 10px;
+}
+
+.arrow-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-top {
+  max-width: 970px;
+  margin: 0 auto;
+  height: 100%
+}
+
+.show-mypage-area {
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+  margin: 0 auto;
+}
+
+.defult-image img, .user_image img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
+.acount_image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.users-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.users-list-name.right > a {
+  display: block;
+  min-width: 109px;
+  border-radius: 3px;
+  padding: 4px 10px;
+  text-align: center;
+  font-size: 0.8rem;
+  transition: all .3s;
+}
+
+.users-list-name span {
+  font-size: 12px;
+}
+
+.header-user-image img, .header-defult-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.list-image img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.edit-top {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-area {
+  padding-top: 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pop-image {
+  background-size: 100% 100%;
+}
+
+.travel-container {
+  max-width: 1050px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-family: 'Zen Kurenaido', sans-serif;
+}
+
+.top-image-area {
+  width: 65%;
+}
+
+.row  .card {
+  background-color: #e8b881b6;
+}
+
+.nav-right {
+  margin-left: auto !important;
+}
+
+.login-group > input {
+  width: 13px;
+}
+
+.navbar-toggler {
+  margin: 0 0 0 auto;
+}
+
+.user_header-list {
+  text-align: left;
+}
+
+.register-title-container {
+  padding-top: 10px;
+}
+
+.container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 1%;
+}
+
+.container p {
+  font-size: 11px;
+  font-family: 'Zen Kurenaido', sans-serif;
+}
+
+.relative-path > a {
+  font-size: 20px;
+}
+
+.under-forms > p {
+  font-size: x-small;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  text-decoration: none;
+}
+
+.editpage {
+  width: 200px;
+  height: 50px;
+  padding: 11px 0;
+}
+
+.item-contents {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-family: "kaisei-harunoumi", sans-serif;
+  width: 100%;
+  cursor: pointer;
+
+  .tab-area {
+    max-width: 970px;
+    margin: 0 auto;
+  }
+
+  .tab-area .tab.active:before {
+    content: "🔻選択中";
+  }
+
+  .tab-area .tab.active {
+    background: rgba(194, 255, 253, 0.934);
+    padding-top: 0;
+  }
+
+  .tab-area .tab.active h3 {
+    opacity: 1;
+  }
+
+  .tab-area .tab {
+    background: rgba(189, 193, 198, 0.5);
+    padding-top: 15px;
+  }
+
+  .tab-area .tab h3 {
+    opacity: 0.5;
+  }
+}
+
+.main-content {
+  min-height: 500px;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  border-color: #333;
+}
+
+.content-area {
+  .content {
+    display: none;
+  }
+
+  .content.show {
+    display: block;
+  }
+}
+
+.field-area select {
+  width: 300px;
+  margin-top: 5px;
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.register-area.login-area {
+  height: auto;
+}
+
+@media (max-width: 1199px) {
+  .search_form {
+    padding-top: 0%;
+  }
+
+  .container{ 
+    max-width: 1200px;
+  }
+
+  .navbar-nav.ml-auto li {
+    margin: 0%;
+  }
+}
+
+@media (max-width: 991px) {
+
+  #error_explanation h2 {
+    width: 100%;
+  }
+
+  .dropdown.user_icon {
+    display: none;
+  }
+
+  .edit-area {
+    display: flex;
+  }
+
+  .top-image-area.mx-auto {
+    width: 100%;
+  }
+
+  .container {
+    max-width: 900px;
+  }
+
+  .navbar-nav.ml-auto > .pop-travel-tag {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .navbar-nav.nav-right > .header-section{
+    margin-left: 0%;
+  }
+
+  .dropdown-menu.show {
+    background-color: rgba(94, 93, 93, 0.771);
+    width: 100%;
+  }
+
+  .dropdown-menu.show > a {
+    font-weight: bold;
+  }
+
+  .d-block.d-sm-none {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .btn.btn-secondary.dropdown-toggle {
+    width: 100%;
+  }
+
+  .text-white.text-start.mb-0.fw-bold {
+    width: 100%;
+  }
+
+  .field.form-group.d-flex.justify-content-between.align-items-center .form-control,
+    .field.form-group.d-flex.justify-content-between.align-items-center select{
+    width: 100%;
+  }
+
+  .sort-lists .d-flex {
+    flex-direction: column;
+  }
+
+  .sort-lists form {
+    order: 1;
+  }
+
+  .sort-lists div {
+    order: 2;
+  }
+}
+
+@media (max-width: 525px) {
+  body, html {
+    overflow-x: hidden;
+  }
+
+  .top-image-area, .register-area, .field input, .actions input, .field-area select { 
+    width: 100% !important;
+  }
+
+  .register-area.login-area {
+    height: auto;
+  }
+
+  .register-title-area {
+    height: 100%;
+    background-color: rgba(167, 236, 255, 0.49);
+  }
+
+  .show-mypage {
+    width: 100%;
+  }
+
+  .show-top-footer ul li {
+    padding: 0%;
+  }
+
+  .show-top-footer ul li div {
+    font-size: 16px;
+  }
+
+  .show-top-footer ul li span {
+    font-size: 16px;
+  }
+
+  .tab-area {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .set-tab.active > h3 {
+    display: inline-block;
+    border-bottom: 2px solid blue;
+  }
+
+  .tab-area .tab.active:before {
+    content: "選択中▶︎" !important;
+  }
+
+  .login-link .login-value, .signup-value {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-right: 0%;
+    margin-left: 0%;
+  }
+
+  .travelplan_prefecture_name {
+    font-size: 40px;
+  }
+
+  .title-image-area .d-flex.flex-row.bd-highlight.travels-prefecture {
+    flex-direction: column !important;
+  }
+
+  .title-image-area .d-flex.flex-row.bd-highlight.travels-prefecture p, 
+    .title-image-area .d-flex.flex-row.bd-highlight.travels-prefecture h1 {
+    margin-top: 5px !important;
+    margin-bottom: 5px;
+  }
+
+  .search_form {
+    padding-top: 0%;
+  }
+
+  .search_form p {
+    font-size: 15px !important;
+  }
+
+  .sort-class {
+    width: 100%;
+  }
+
+  .edit-area {
+    margin: 0 auto;
+  }
+
+  .refine-search {
+    width: 100%;
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+  }
+}

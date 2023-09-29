@@ -1,0 +1,35 @@
+<div class="top">
+  <div>
+    <div class="top-image-class">
+      <div class="top-image-area mx-auto">
+        <%= image_tag 'https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/back_image/travel_image.png', class: 'top-image' %>
+      </div>
+    </div>
+    <div class="text-area">
+      <div class=text-container>
+        <h1 class="sub-title-h1">☆ズボラ向け自動旅行プラン作成サイト☆</h1>
+        <br>
+        <P class="explanatory-text-p">旅行はしたいけど、計画立てるのはめんどくさいと思う方に旅行プランを提供します！
+          <br>
+          人気の旅行プランを一覧で確認も出来るので楽しい旅行プランでリフレッシュしよう！
+        </P>
+        <div class="user-top-link">
+          <% if user_signed_in? %>
+            <div class="trabel-create-home">
+              <%= link_to  "> 旅行プランを作成する", new_travelplan_path, class: "post-value" %>
+            </div>
+          <% else %>
+            <div class="sign-up-link">
+              <%= link_to "> 新規登録して旅行プランを立ててみよう！", new_user_registration_path, class: "signup-value"%>
+            </div>
+            <div class="login-link">
+              <%= link_to "ログインはこちら", new_user_session_path, class: "login-value" %>
+              <%= link_to "ゲストログインはちら", users_guest_sign_in_path, class: "login-value", method: :post %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render 'shared/pop_travel', travelplans: @travelplans %>
+</div>

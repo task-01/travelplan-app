@@ -1,0 +1,51 @@
+<% if request.format.pdf? && travelplan&.id? %>
+  <div class="pdf-header">
+    <h1>都道府県名: <%= travelplan.prefecture_name %></h1>
+    <h2>宿泊日数: <%= travelplan.number_day %>日</h2>
+  </div>
+<% end %>
+<div class="set-travels-area">
+  <ol class="d-flex flex-wrap list-group">
+    <% response_lines = travelplan.gpt_response.split("\n") %>
+    <% day_counter = 0 %>
+    <% plan_content = [] %>
+    <% response_lines.each do |line| %>
+      <% if line.match?(/Day|日目/) && !plan_content.empty? && day_counter != 0 %>
+        <li class="travals-history list-group-item bg-transparent border-0">
+          <div class="travel-text-area">
+            <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter %>day</h5>
+            <hr width="ms-2 me-auto auto">
+            <% plan_content.each do |content| %>
+              <p class="ms-2 me-auto"><%= content.gsub('-', '').strip %></p>
+            <% end %>
+          </div>
+        </li>
+        <% plan_content.clear %>
+        <% day_counter += 1 %>
+      <% elsif line.match?(/Day|日目/) %>
+        <% day_counter += 1 %>
+      <% else %>
+        <% plan_content << line %>
+      <% end %>
+    <% end %>
+    <% if !plan_content.empty? %>
+      <li class="travals-history list-group-item bg-transparent border-0">
+        <div class="travel-text-area">
+          <h5 class="ms-2 mt-2 mb-0 me-auto fw-bold"><%= day_counter.zero? ? 1 : day_counter %>day</h5>
+          <hr width="ms-2 me-auto auto">
+          <% plan_content.each do |content| %>
+            <p class="ms-2 me-auto"><%= content.gsub('-', '').strip %></p>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ol>
+  <% if !request.format.pdf? %>
+    <div class="text-right mx-3 mt-3">
+      <%= link_to "PDFでダウンロード", travelplans_pdf_travelplan_path(travelplan, format: :pdf), class: "btn btn-primary" %>
+    </div>
+    <div class="text-center mt-3">
+      <button class="btn close-button">閉じる</button>
+    </div>
+  <% end %>
+</div>

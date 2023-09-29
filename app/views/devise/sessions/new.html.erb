@@ -1,26 +1,75 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+<% if flash[:alert] %>
+  <div class="px-3 flash-message bg-warning">
+    <%= flash[:alert] %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<div class="top">
+  <div class="register-area login-area">
+    <div class="register-image">
+      <div class="register-title-area">
+        <div class="register-title-container w-75 mx-auto">
+          <div class="relative-title-area mt-5 mb-3">
+            <div class="relative-area">
+              <div class="relative-path">
+                <%= link_to '/', class: 'navbar-brand' do %>
+                  <i class="icon-arrow-right"></i>Travel Plan App
+                <% end %>
+              </div>
+              <h1>ログイン</h1>
+            </div>
+          </div>
+          <div class="field-area">
+            <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+              <div class="field form-group">
+                <%= f.label "メールアドレス", for: "user_email" %><br>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "type_email form-control", required: "required" %>
+                <%= f.label "※入力必須項目です", for: "user_email" %>
+              </div>
+              <div class="field form-group">
+                <%= f.label "パスワード", for: "input_pass" %><br>
+                <%= f.password_field :password, id: "input_pass", autocomplete: "current-password", class: "type_password form-control", required: "required" %>
+                <%= f.label "※入力必須項目です", class: "type_confirmation_password", for: "input_pass" %>
+              </div>
+              <% if devise_mapping.rememberable? %>
+                <div class="field form-group login-group">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+              <% end %>
+              <input type='checkbox' id='users_passcheck' class='check_input mb-3'> 
+              パスワードを表示する
+              <div class="actions">
+                <%= f.submit "ログイン", class: "btn btn-blue btn--cubic mt-3" %>
+              </div>
+            <% end %>
+            <hr class="hr_border mt-5 mb-3">
+            <div class="under-forms pb-3">
+              <p>
+                パスワードをお忘れの場合は、<%= render "devise/shared/password_reset_link" %>から再発行してください。
+              </p>
+              <p>
+                アカウントをお持ちでない場合は<%= render "devise/shared/sigin_up_link" %>を行うか、<%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>をしてください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener('turbolinks:load', function() {
+  const element = document.getElementById('users_passcheck');
+  if (element) {
+    element.addEventListener('change', function() {
+      let input_pass = document.getElementById("input_pass");
+      if (input_pass.type === "password") {
+        input_pass.type = "text";
+      } else {
+        input_pass.type = "password";
+      }
+    });
+  }
+}, false);
+</script>

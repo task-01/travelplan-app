@@ -1,0 +1,96 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-expand-custom">
+    <div class="container">
+      <% if user_signed_in? %>
+        <h1><%= link_to 'Travel Plan App', home_travelplan_path(user.id), class: 'navbar-brand' %></h1>
+      <% else %>
+        <h1><%= link_to 'Travel Plan App', '/', class: 'navbar-brand' %></h1>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" 
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li class="pop-travel-tag" >
+            <%= link_to travelplans_path, class: 'text-dark text-decoration-none' do %>
+              <i class="bi bi-airplane-engines"></i>旅行プラン一覧
+            <% end %>
+          </li>
+          <li class="pop-travel-tag">
+            <%= link_to list_users_path, class: 'text-dark text-decoration-none' do %>
+              <i class="bi bi-person-lines-fill"></i>ユーザ一
+            <% end %>
+          </li>
+          <li class="pop-travel-tag">
+            <%= link_to new_travelplan_path, class: 'text-dark text-decoration-none' do %>
+              <i class="bi bi-file-post"></i>旅行プラン作成
+            <% end %>
+          </li>
+          <% if user_signed_in? %>
+            <li class="pop-travel-tag d-lg-none d-md-block">
+              <%= link_to user_path(current_user.id), class: "dropdown-item text-dark text-decoration-none" do %>
+                <i class="bi bi-person-rolodex"></i>マイページ
+              <% end %>
+            </li>
+            <li class="pop-travel-tag d-lg-none d-md-block">
+              <%= link_to acount_users_path, class: "dropdown-item text-dark text-decoration-none" do %>
+                <i class="bi bi-person-gear"></i>アカウント設定
+              <% end %>
+            </li>
+            <li class="pop-travel-tag d-lg-none d-md-block">
+              <%= link_to destroy_user_session_path, class: "dropdown-item text-dark text-decoration-none", 
+              method: :delete, data: { confirm: "ログアウトしますか？" } do %> 
+                <i class="bi bi-box-arrow-right"></i>ログアウト
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% if user_signed_in? %>
+        <div class="dropdown user_icon"> 
+          <div id="OpenMenu" class="dropdown-toggle d-flex align-items-center" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <% if user.image.attached? %>
+              <div class="header-user-image">
+                <%= image_tag user.image %>
+              </div>
+            <% else %>
+              <div class="header-defult-image mr-2">
+                <%= image_tag "https://potepanecportfolio.s3.ap-northeast-1.amazonaws.com/user_image/user_image.png" %>
+              </div>
+            <% end %>
+            <span><%= current_user.name %></span>
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="OpenMenu">
+            <li><%= link_to "マイページ", user_path(current_user.id), class: "dropdown-item text-dark text-decoration-none" %></li>
+            <li><%= link_to "アカウント設定", acount_users_path, class: "dropdown-item text-dark text-decoration-none" %></li>
+            <li><%= link_to "旅行プラン作成", new_travelplan_path, class: "dropdown-item text-dark text-decoration-none" %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, class: "dropdown-item text-dark text-decoration-none", 
+              method: :delete, data: { confirm: "ログアウトしますか？" } %></li>
+          </ul>
+        </div>
+      <% else %>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav nav-right">
+            <li class="header-section">
+              <%= link_to new_user_session_path, class: 'text-dark text-decoration-none' do %>
+                <i class="bi bi-box-arrow-in-right"></i>ログイン
+              <% end %>
+            </li>
+            <li class="header-section">
+              <%= link_to users_guest_sign_in_path, class: 'text-dark text-decoration-none guest', method: :post do %>
+                <i class="bi bi-person-down"></i>ゲストログイン（閲覧用）
+              <% end %>
+            </li>
+            <li class="header-section">
+              <%= link_to new_user_registration_path, class: 'text-dark text-decoration-none' do %>
+                <i class="bi bi-plus-circle-dotted"></i>新規登録
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </nav>
+</header>
