@@ -38,6 +38,7 @@
 ## プロジェクトについて
 
 旅行プランを自動で簡単に作成・共有ができるサイトです。
+プライベートで予定を立てて旅行に行くのが面倒と思い作成しました！
 
 <p align="right"><a href="#top">トップへ</a></p>
 
@@ -64,7 +65,7 @@
 
 <p align="right"><a href="#top">トップへ</a></p>
 
-![ER Diagram](https://drive.google.com/uc?export=view&id=1Rlt1D42OwnmyWqs8Lyy9Lj181IOFDC40)
+![ER図](https://github.com/task-01/travelplan-app/assets/113382858/e8e33a67-b79a-4d98-8dc4-b1b797f555a3)
 
 
 ## ディレクトリ構成
