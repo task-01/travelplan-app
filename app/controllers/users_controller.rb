@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def list
     @user = current_user
     users = User.includes(:travelplans, :active_follows, :followers, :following, :passive_follows,
-image_attachment: :blob).all
+    image_attachment: :blob).all
     if params[:name].present?
       users = users.where("name LIKE ?", "%#{params[:name]}%")
     end
