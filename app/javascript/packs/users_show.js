@@ -44,8 +44,6 @@ function updateNotificationArea() {
 };
 
 document.addEventListener("turbolinks:load", function() {
-  const previousTravelPlanId = localStorage.getItem("travelplanId");
-  const currentTravelPlanId = $(".top").data("travelplan-id");
   const modalElement = document.getElementById('editModalshow');
   let editModalShow;
   if (modalElement) {
