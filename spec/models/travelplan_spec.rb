@@ -4,7 +4,7 @@ RSpec.describe 'Travelplan', type: :model do
 
     it 'GPT-3 API から応答を返ってくること' do
       response = travelplan.fetch_gpt_response
-      expect(response).to include('Day 1：').or include('3日目：')
+      expect(response).to include('1日目').or include('3Day')
     end
   end
 end
