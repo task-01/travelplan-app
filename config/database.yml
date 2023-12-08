@@ -22,7 +22,7 @@ test:
 
 production:
   <<: *default
-  database: travelplan_app_production
+  database: travelplan-app
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
