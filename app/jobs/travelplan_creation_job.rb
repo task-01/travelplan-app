@@ -1,6 +1,6 @@
 class TravelplanCreationJob < ApplicationJob
   queue_as :default
-
+  
   def perform(travelplan_id, user_id, fetch_gpt_response)
     travelplan = Travelplan.find_by(id: travelplan_id)
     Rails.logger.info "#{travelplan}"
