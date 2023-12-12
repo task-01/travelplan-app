@@ -95,6 +95,6 @@ class TravelplansController < ApplicationController
 
   def content_params
     params.require(:travelplan).permit(:gpt_response, :travelplan_name, :prefecture_name,
-    :tourist_spot, :number_day, :content_chat, :end_date, :start_date)
+    :tourist_spot, :number_day, :content_chat, :end_date, :start_date, :user_id)
   end
 end
