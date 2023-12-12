@@ -8,7 +8,6 @@ class Travelplan < ApplicationRecord
 
   def fetch_gpt_response
     client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
-    # question = "#{content_chat}日次リスト形式"
     response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo-0301",
