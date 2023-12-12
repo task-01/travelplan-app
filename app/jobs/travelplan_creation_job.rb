@@ -2,8 +2,7 @@ class TravelplanCreationJob < ApplicationJob
   queue_as :default
 
   def perform(travelplan_id, user_id)
-    Rails.logger.info "TravelplanCreationJobが開始されました。travelplan_id: #{travelplan_id}
-    user_id: #{user_id}"
+    Rails.logger.info "TravelplanCreationJobが開始されました。travelplan_id: #{travelplan_id}, user_id: #{user_id}"
     travelplan = Travelplan.find_by(id: travelplan_id)
     unless travelplan
       Rails.logger.error "travelplanのID:
