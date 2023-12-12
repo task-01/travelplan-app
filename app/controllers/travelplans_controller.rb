@@ -69,9 +69,9 @@ class TravelplansController < ApplicationController
 
   def create
     @travelplan = Travelplan.new(content_params.merge(job_status: "in_progress"))
+    @travelplan.gpt_response = @travelplan.fetch_gpt_response
     if @travelplan.save
       current_user.update(job_status: "in_progress")
-      TravelplanCreationJob.perform_later(@travelplan.id, current_user.id)
       flash[:notice] = "旅行プラン作成中ですこれには時間が掛かる場合があります..."
       redirect_to user_path(current_user)
     else
@@ -95,6 +95,6 @@ class TravelplansController < ApplicationController
 
   def content_params
     params.require(:travelplan).permit(:gpt_response, :travelplan_name, :prefecture_name,
-    :tourist_spot, :number_day, :content_chat, :end_date, :start_date)
+    :tourist_spot, :number_day, :content_chat, :end_date, :start_date, :user_id)
   end
 end
