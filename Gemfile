@@ -65,9 +65,7 @@ group :test do
 end
 
 group :production do
-  gem 'unicorn', '5.7.0'
-  gem 'pg', '1.1.3'
-  gem 'mysql2'
+  gem 'unicorn', '~> 5.6'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
