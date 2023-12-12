@@ -4,7 +4,9 @@ class TravelplanCreationJob < ApplicationJob
   def perform(travelplan_id, user_id)
     travelplan = Travelplan.find_by(id: travelplan_id)
     unless travelplan
-      Rails.logger.error "#{travelplan_id}が見つかりませんでした"
+      Rails.logger.error "travelplanのID:
+        #{travelplan_id}とuserのID:#{travelplan_id}
+        が見つかりませんでした"
       return
     end
 
