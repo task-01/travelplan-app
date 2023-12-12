@@ -8,20 +8,13 @@ class Travelplan < ApplicationRecord
 
   def fetch_gpt_response
     client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
-    question = "#{content_chat}の日次の旅行プランをリスト形式で教えてください。"
-
-    start_time = Time.now
-
     response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo-0301",
-        messages: [{ role: "user", content: question }],
+        messages: [{ role: "user", content: "#{content_chat}日次リスト形式" }],
         temperature: 0.2,
       }
     )
-    elapsed_time = Time.now - start_time
-    Rails.logger.info("OpenAI API Response time: #{elapsed_time} seconds")
-
     response.dig('choices', 0, 'message', 'content')
   end
 

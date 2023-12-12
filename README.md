@@ -65,50 +65,95 @@
 
 <p align="right"><a href="#top">トップへ</a></p>
 
-![ER図](https://github.com/task-01/travelplan-app/assets/113382858/e8e33a67-b79a-4d98-8dc4-b1b797f555a3)
-
+## ER図
+![ER図](https://github.com/task-01/travelplan-app/assets/113382858/e8e33a67-b79a-4d98-8dc4-b1b797f555a3)  
+<p align="right"><a href="#top">トップへ</a></p>
 
 ## ディレクトリ構成
 
 <!-- Treeコマンドを使ってディレクトリ構成を記載 -->
-
-.
-├── .bundle
-├── .env
-├── .gitattributes
-├── .gitignore
-├── .rspec
-├── .rubocop.yml  (and other related .rubocop files)
-├── .ruby-version
-├── Gemfile (and Gemfile.lock)
-├── Procfile
-├── README.md
-├── Rakefile
-├── app
-│   ├── assets
-│   ├── controllers
-│   ├── helpers
-│   ├── javascript
-│   ├── mailers
-│   ├── models
-│   └── views
-├── bin
-├── config
-├── db
-├── lib
-├── log
-├── package.json (and package-lock.json)
-├── public
-├── spec
-├── storage
-├── test
-├── tmp
-└── vendor
-
+.  
+├── .bundle  
+├── .env  
+├── .gitattributes  
+├── .gitignore  
+├── .rspec  
+├── .rubocop.yml  (and other related .rubocop files)  
+├── .ruby-version  
+├── Gemfile (and Gemfile.lock)  
+├── Procfile  
+├── README.md  
+├── Rakefile  
+└── app  
+&emsp;&emsp;&emsp;    ├── assets  
+&emsp;&emsp;&emsp;    ├── controllers  
+&emsp;&emsp;&emsp;    ├── helpers  
+&emsp;&emsp;&emsp;    ├── javascript  
+&emsp;&emsp;&emsp;    ├── mailers  
+&emsp;&emsp;&emsp;    ├── models  
+&emsp;&emsp;&emsp;    └── views  
+├── bin  
+├── config  
+├── db  
+├── lib  
+├── log  
+├── package.json (and package-lock.json)  
+├── public  
+├── spec  
+├── storage  
+├── test  
+├── tmp  
+└── vendor  
 
 <p align="right"><a href="#top">トップへ</a></p>
 
-## 開発環境構築
+## 機能一覧
+●&emsp;ユーザー登録、ログイン機能(Devise)  
+●&emsp;旅行プラン作成機能(openAI)  
+&emsp;&emsp;&emsp;○&emsp;非同期実行(Sidekiq、Redis)  
+●&emsp;いいね機能(Ajax)  
+&emsp;&emsp;&emsp;○&emsp;ランキング機能    
+●&emsp;フォロー機能  
+●&emsp;絞り込み検索機能(Ransack)  
+●&emsp;ダウンロード機能(WickedPdf, wkhtmltopdf-binary)  
+<p align="right"><a href="#top">トップへ</a></p>
+
+## テスト  
+●&emsp;RSpec  
+&emsp;&emsp;&emsp;○&emsp;単体テスト(model、helper)  
+&emsp;&emsp;&emsp;○&emsp;システムテスト(system)
+<p align="right"><a href="#top">トップへ</a></p>
+
+## 機能一覧
+### Topページ  
+・簡易的な人気の旅行先がわかります。  
+
+![Topページ](https://user-images.githubusercontent.com/113382858/272773110-d0255fc2-868e-4588-808c-18b6f7f022d1.png)  
+
+### 新規登録ページ  
+・新規登録後マイページへ遷移  
+※ログインも同様の動き  
+
+https://github.com/task-01/travelplan-app/assets/113382858/f89cbe59-6b0a-43db-8743-4e27e840d1d5
+
+### 旅行プラン作成ページからマイページへ遷移後セット中旅行プランに追加  
+・旅行プラン作成後マイページへ遷移  
+・マイページでは作成した旅行プランがセット中の旅行プランとして表示される  
+※また、マイページでは他に作成履歴やいいね履歴なども確認可能  
+
+https://github.com/task-01/travelplan-app/assets/113382858/a6d9f7d3-a5e4-4dad-830e-5d526c4f2aa4  
+
+### 前ユーザーの各旅行プランリスト閲覧ページ  
+・各ユーザーの旅行プラン一覧が見れる  
+・条件によって絞り込みや検索機能もある  
+・そして共有機能としてpdfダウンロードもできる
+
+https://github.com/task-01/travelplan-app/assets/113382858/9911ed09-a3c2-4600-95bf-39a4162ddce6
+
+
+<p align="right"><a href="#top">トップへ</a></p>  
+
+## 開発環境構築  
 
 <!-- コンテナの作成方法、パッケージのインストール方法など、開発環境構築に必要な情報を記載 -->
 
