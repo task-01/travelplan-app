@@ -7,16 +7,21 @@ class Travelplan < ApplicationRecord
   has_one_attached :prefecture_image
 
   def fetch_gpt_response
-    client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
-    # question = "#{content_chat}日次リスト形式"
-    response = client.chat(
-      parameters: {
-        model: "gpt-3.5-turbo-0301",
-        messages: [{ role: "user", content: "#{content_chat}日次リスト形式" }],
-        temperature: 0.2,
-      }
-    )
-    response.dig('choices', 0, 'message', 'content')
+    begin
+      client = OpenAI::Client.new(access_token: ENV["CHATGPT_API_KEY"])
+      # question = "#{content_chat}日次リスト形式"
+      response = client.chat(
+        parameters: {
+          model: "gpt-3.5-turbo-0301",
+          messages: [{ role: "user", content: "#{content_chat}日次リスト形式" }],
+          temperature: 0.2,
+        }
+      )
+      response.dig('choices', 0, 'message', 'content')
+    rescue => e
+      Rails.logger.error "fetch_gpt_responseでエラーが発生しました: #{e.message}"
+      return nil # または適切なデフォルト値
+    end
   end
 
   def like(travelplan)
